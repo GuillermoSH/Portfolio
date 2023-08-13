@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <title>GuillermoSH</title>
+</head>
+
+<body class="min-h-screen bg-slate-200 dark:bg-slate-900 dark:text-white relative">
+    <header
+        class="h-[60px] w-screen dark:bg-slate-900/50 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 px-6 flex items-center justify-between">
+        <h1 class="text-xl text-amber-600 font-semibold">
+            <a href="#home">GuillermoSH</a>
+        </h1>
+        <nav class="flex gap-6 text-xl font-semibold">
+            <a class="hidden md:flex hover-underline-animation relative" href="#home">Home</a>
+            <a class="hidden md:flex hover-underline-animation relative">About</a>
+            <a class="hidden md:flex hover-underline-animation relative">Projects</a>
+            <a class="hidden md:flex hover-underline-animation relative">Tools</a>
+        </nav>
+    </header>
+    <main>
+        <section class="h-screen flex flex-col md:flex-row justify-center items-center gap-6 md:gap-0 px-6" id="home">
+            <div
+                class="max-w-[400px] aspect-square object-cover rounded-full flex items-center justify-center overflow-hidden border-r-8 border-b-8 border-amber-600">
+                <img src="./img/photo.png" decoding="async" loading="lazy" draggable="false" alt="GuillermoSH photo"
+                    class="h-[130%] aspect-square object-contain object-bottom" />
+            </div>
+            <div class="ml-0 md:ml-6 max-w-[800px]">
+                <h1 class="text-3xl md:text-5xl mb-6 font-bold">
+                    Hi, I'm <span class="text-amber-600">Guillermo Sicilia</span>
+                </h1>
+                <div class="text-sm sm:text-lg">
+                    I'm a <span class="italic text-amber-600 font-semibold">Full Stack</span> software developer that's
+                    continually learning about new technologies and tools, and polishing the ones I have used. Up to
+                    now, I have worked mainly with <a href="https://spring.io/projects/spring-boot" target="_blank"
+                        class="italic text-green-600 dark:hover:text-green-300 hover:underline duration-300 rounded-sm font-semibold">Spring
+                        Boot</a> as Back End, <a href="https://angular.io/" target="_blank"
+                        class="italic text-red-600 dark:hover:text-red-300 hover:underline duration-300 rounded-sm font-semibold">Angular</a>
+                    as Front End and <a href="https://tailwindcss.com/" target="_blank"
+                        class="italic text-cyan-500 dark:hover:text-cyan-300 hover:underline duration-300 rounded-sm font-semibold">Tailwind</a>
+                    as Front End tool.
+                </div>
+                <div class="flex gap-4 mt-6">
+                    <a href="https://twitter.com/guillermoshdez"
+                        class="h-8 aspect-square rounded-xl bg-slate-400 hover:bg-slate-200 hover:scale-125 duration-200 text-slate-900 flex items-center justify-center"><i
+                            class="fa-brands fa-x-twitter text-xl"></i></a>
+                    <a href="https://github.com/GuillermoSH"
+                        class="h-8 aspect-square rounded-xl bg-slate-400 hover:bg-slate-200 hover:scale-125 duration-200 text-slate-900 flex items-center justify-center"><i
+                            class="fa-brands fa-github text-xl"></i></a>
+                    <a href="https://www.linkedin.com/in/guillermo-sicilia-hern%C3%A1ndez-95861523b/"
+                        class="h-8 aspect-square rounded-xl bg-slate-400 hover:bg-slate-200 hover:scale-125 duration-200 text-slate-900 flex items-center justify-center"><i
+                            class="fa-brands fa-linkedin-in text-xl"></i></a>
+                </div>
+            </div>
+        </section>
+        <section class="h-screen flex items-center justify-center" id="about"></section>
+        <section class="h-screen flex items-center justify-center" id="projects"></section>
+        <section class="h-screen flex items-center justify-center" id="tools"></section>
+    </main>
+    <footer></footer>
+    <script src="https://kit.fontawesome.com/528f34854d.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
