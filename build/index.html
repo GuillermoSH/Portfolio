@@ -9,18 +9,24 @@
     <title>GuillermoSH</title>
 </head>
 
-<body class="min-h-screen bg-slate-200 dark:bg-slate-900 dark:text-white relative">
+<body class="h-screen bg-slate-200 dark:bg-slate-900 dark:text-white relative">
     <header
-        class="h-[60px] w-screen dark:bg-slate-900/50 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 px-6 flex items-center justify-between">
+        class="h-[60px] w-screen dark:bg-slate-900/50 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 px-6 md:px-14 flex items-center justify-between"
+        id="header">
         <h1 class="text-xl text-amber-600 font-semibold">
             <a href="#home">GuillermoSH</a>
         </h1>
-        <nav class="flex gap-6 text-xl font-semibold">
-            <a class="hidden md:flex hover-underline-animation relative" href="#home">Home</a>
-            <a class="hidden md:flex hover-underline-animation relative">About</a>
-            <a class="hidden md:flex hover-underline-animation relative">Projects</a>
-            <a class="hidden md:flex hover-underline-animation relative">Tools</a>
+        <nav class="text-xl font-semibold" id="menu">
+            <ul class="flex gap-14">
+                <li><a class="hidden md:flex hover-underline-animation relative" href="#home">Home</a></li>
+                <li><a class="hidden md:flex hover-underline-animation relative" href="#about">About</a></li>
+                <li><a class="hidden md:flex hover-underline-animation relative" href="#projects">Projects</a></li>
+                <li><a class="hidden md:flex hover-underline-animation relative" href="#tools">Tools</a></li>
+            </ul>
         </nav>
+        <button class="md:hidden text-amber-600 duration-200 hover:text-amber-200">
+            <i class="fa-solid fa-burger text-xl"></i>
+        </button>
     </header>
     <main>
         <section class="h-screen flex flex-col md:flex-row justify-center items-center gap-6 md:gap-0 px-6" id="home">
@@ -34,13 +40,19 @@
                     Hi, I'm <span class="text-amber-600">Guillermo Sicilia</span>
                 </h1>
                 <div class="text-sm sm:text-lg">
-                    I'm a <span class="italic text-amber-600 font-semibold">Full Stack</span> software developer that's
-                    continually learning about new technologies and tools, and polishing the ones I have used. Up to
-                    now, I have worked mainly with <a href="https://spring.io/projects/spring-boot" target="_blank"
+                    I'm a
+                    <span class="italic text-amber-600 font-semibold">Full Stack</span>
+                    software developer that's continually learning about new
+                    technologies and tools, and polishing the ones I have used. Up to
+                    now, I have worked mainly with
+                    <a href="https://spring.io/projects/spring-boot" target="_blank"
                         class="italic text-green-600 dark:hover:text-green-300 hover:underline duration-300 rounded-sm font-semibold">Spring
-                        Boot</a> as Back End, <a href="https://angular.io/" target="_blank"
+                        Boot</a>
+                    as Back End,
+                    <a href="https://angular.io/" target="_blank"
                         class="italic text-red-600 dark:hover:text-red-300 hover:underline duration-300 rounded-sm font-semibold">Angular</a>
-                    as Front End and <a href="https://tailwindcss.com/" target="_blank"
+                    as Front End and
+                    <a href="https://tailwindcss.com/" target="_blank"
                         class="italic text-cyan-500 dark:hover:text-cyan-300 hover:underline duration-300 rounded-sm font-semibold">Tailwind</a>
                     as Front End tool.
                 </div>
@@ -61,8 +73,16 @@
         <section class="h-screen flex items-center justify-center" id="projects"></section>
         <section class="h-screen flex items-center justify-center" id="tools"></section>
     </main>
-    <footer></footer>
+    <footer class="h-96 bg-slate-400">
+        <section class="h-[calc(100%-4rem)]"></section>
+        <section class="h-16 bg-slate-700 flex items-center justify-center">
+            <div class="text-sm font-semibold">
+                All right reserved by: &copy;GuillermoSH 2023
+            </div>
+        </section>
+    </footer>
     <script src="https://kit.fontawesome.com/528f34854d.js" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>

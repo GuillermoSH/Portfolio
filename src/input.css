@@ -38,3 +38,7 @@ body::-webkit-scrollbar-thumb {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
+
+#menu a.active {
+    transform: translateX(200px);
+}
