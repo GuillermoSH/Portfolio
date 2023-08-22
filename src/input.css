@@ -44,6 +44,25 @@ body::-webkit-scrollbar-thumb {
 }
 
 .about-opt.active {
-    @apply text-amber-300 !important;
+    @apply bg-blue-600/90 !important;
+    @apply dark:bg-slate-600/90 !important;
+    @apply dark:text-slate-100 !important;
     pointer-events: none;
+}
+
+.slide {
+    transition: all 0.2s;
+    animation: slide 0.2s;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(30%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }

@@ -4,8 +4,10 @@ for (let i = 1; i < sections.length; i++) {
     sections[i].classList.add("hidden")
 }
 
-function toggleActiveAbout(option) {
+function changeInfoAbout(option) {
     let options = document.getElementsByClassName("about-opt");
+    let section = document.getElementById(option.id.substring(1));
+    console.log(section)
 
     for (const opt of options) {
         opt.classList.remove("active");
@@ -15,6 +17,9 @@ function toggleActiveAbout(option) {
         section.classList.add("hidden")
     }
 
-    document.getElementById(option.id.substring(1)).classList.remove("hidden");
+    section.classList.add("slide");
     option.classList.add("active");
+    
+    setTimeout(() => {section.classList.remove("hidden")}, 200);
+    setTimeout(() => {section.classList.remove("slide")}, 400);
 }

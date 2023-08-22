@@ -4,35 +4,37 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Guillermo Sicilia Hernández Portfolio">
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    <title>GuillermoSH</title>
+    <title>Guillermo Sicilia Hernández</title>
 </head>
 
-<body class="bg-slate-200 dark:bg-slate-900 dark:text-white relative" style="scroll-behavior: smooth">
+<body class="bg-slate-200 dark:bg-slate-900 dark:text-white relative overflow-x-hidden">
     <header
-        class="h-[60px] w-screen dark:bg-slate-900/50 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 px-6 md:px-14 flex items-center justify-between"
+        class="h-[60px] w-screen dark:bg-slate-900/50 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 ps-4 pe-6 md:ps-10 md:pe-14 flex items-center justify-between"
         id="header">
-        <h1 class="text-xl text-amber-600 font-semibold">
-            <a href="#home">GuillermoSH</a>
-        </h1>
-        <nav class="text-xl font-semibold" id="menu">
+        <a href="#home" class="text-xl text-amber-600 font-semibold flex items-center justify-center gap-3 hover:slide">
+            <img src="./img/logo.webp" alt="GuillermoSH Logo" class="h-8 md:h-10 aspect-square">
+            <h1 href="#home">GuillermoSH</h1>
+        </a>
+        <nav class="hidden md:flex text-xl font-semibold" id="menu" aria-label="Navigation menu">
             <ul class="flex gap-14">
                 <li>
-                    <a class="hidden md:flex hover-underline-animation relative" href="#home">Home</a>
+                    <a class="hover-underline-animation relative" href="#home" title="Home page">Home</a>
                 </li>
                 <li>
-                    <a class="hidden md:flex hover-underline-animation relative" href="#about">About</a>
+                    <a class="hover-underline-animation relative" href="#about" title="About page">About</a>
                 </li>
                 <li>
-                    <a class="hidden md:flex hover-underline-animation relative" href="#projects">Projects</a>
+                    <a class="hover-underline-animation relative" href="#projects" title="Projects page">Projects</a>
                 </li>
                 <li>
-                    <a class="hidden md:flex hover-underline-animation relative" href="#tools">Tools</a>
+                    <a class="hover-underline-animation relative" href="#tools" title="Tools page">Tools</a>
                 </li>
             </ul>
         </nav>
-        <button class="md:hidden text-amber-600 duration-200 hover:text-amber-200">
+        <button class="md:hidden text-amber-600 duration-200 hover:text-amber-200" aria-label="Menu button">
             <i class="fa-solid fa-burger text-xl"></i>
         </button>
     </header>
@@ -41,8 +43,8 @@
             id="home">
             <div
                 class="max-w-[400px] aspect-square object-cover rounded-full flex items-center justify-center overflow-hidden border-r-8 border-b-8 border-amber-600">
-                <img src="./img/photo.png" draggable="false" alt="GuillermoSH photo"
-                    class="h-[130%] aspect-square object-contain object-bottom" />
+                <img src="./img/photo.webp" alt="GuillermoSH photo"
+                    class="h-[130%] aspect-square object-contain object-bottom pointer-events-none" />
             </div>
             <div class="ml-0 md:ml-6 max-w-[800px]">
                 <h1 class="text-3xl md:text-5xl mb-6 font-bold">
@@ -66,13 +68,13 @@
                     as Front End tool.
                 </div>
                 <div class="flex gap-4 mt-6">
-                    <a href="https://twitter.com/guillermoshdez"
+                    <a href="https://twitter.com/guillermoshdez" title="Twitter account"
                         class="h-8 aspect-square rounded-xl bg-slate-400 hover:bg-slate-700 hover:text-slate-400 dark:hover:text-slate-900 dark:hover:bg-slate-200 hover:scale-125 duration-200 text-slate-900 flex items-center justify-center"><i
                             class="fa-brands fa-x-twitter text-xl"></i></a>
-                    <a href="https://github.com/GuillermoSH"
+                    <a href="https://github.com/GuillermoSH" title="Github account"
                         class="h-8 aspect-square rounded-xl bg-slate-400 hover:bg-slate-700 hover:text-slate-400 dark:hover:text-slate-900 dark:hover:bg-slate-200 hover:scale-125 duration-200 text-slate-900 flex items-center justify-center"><i
                             class="fa-brands fa-github text-xl"></i></a>
-                    <a href="https://www.linkedin.com/in/guillermo-sicilia-hern%C3%A1ndez-95861523b/"
+                    <a href="https://www.linkedin.com/in/guillermo-sicilia-hern%C3%A1ndez-95861523b/" title="LinkedIn account"
                         class="h-8 aspect-square rounded-xl bg-slate-400 hover:bg-slate-700 hover:text-slate-400 dark:hover:text-slate-900 dark:hover:bg-slate-200 hover:scale-125 duration-200 text-slate-900 flex items-center justify-center"><i
                             class="fa-brands fa-linkedin-in text-xl"></i></a>
                 </div>
@@ -89,89 +91,122 @@
                         Experience
                     </h1>
                     <h2 class="text-base sm:text-lg md:text-xl mt-3">Studies</h2>
-                    <ul class="list-inside list-['-'] ml-2 md:ml-3 leading-tight text-gray-500 grid gap-2">
-                        <li id="adaw" onclick="toggleActiveAbout(this)"
-                            class="cursor-pointer hover:text-gray-300 duration-200 about-opt active">
+                    <ul class="me-2 mt-1 md:me-3 leading-tight text-gray-500">
+                        <li id="adaw" onclick="changeInfoAbout(this)"
+                            class="px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 dark:hover:text-gray-300 duration-200 about-opt active">
                             Higher degree in Web Apps.
                         </li>
-                        <li id="aatos" onclick="toggleActiveAbout(this)"
-                            class="cursor-pointer hover:text-gray-300 duration-200 about-opt">
+                        <li id="aatos" onclick="changeInfoAbout(this)"
+                            class="px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 dark:hover:text-gray-300 duration-200 about-opt">
                             Bussiness practices in Atos.
                         </li>
                     </ul>
                     <h2 class="text-base sm:text-lg md:text-xl mt-3">Courses</h2>
-                    <ul class="list-inside list-['-'] ml-2 md:ml-3 leading-tight text-gray-500 grid gap-2">
-                        <li id="aaws" onclick="toggleActiveAbout(this)"
-                            class="cursor-pointer hover:text-gray-300 duration-200 about-opt">
+                    <ul class="me-2 mt-1 md:me-3 leading-tight text-gray-500">
+                        <li id="aaws" onclick="changeInfoAbout(this)"
+                            class="px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 dark:hover:text-gray-300 duration-200 about-opt">
                             Digital learning AWS.
                         </li>
                     </ul>
                     <h2 class="text-base sm:text-lg md:text-xl mt-3">Work</h2>
-                    <ul class="list-inside list-['-'] ml-2 md:ml-3 leading-tight text-gray-500 grid gap-2">
-                        <li id="aeviden" onclick="toggleActiveAbout(this)"
-                            class="cursor-pointer hover:text-gray-300 duration-200 about-opt">
+                    <ul class="me-2 mt-1 md:me-3 leading-tight text-gray-500">
+                        <li id="aeviden" onclick="changeInfoAbout(this)"
+                            class="px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 dark:hover:text-gray-300 duration-200 about-opt">
                             Eviden.
                         </li>
                     </ul>
+                    <h1
+                        class="text-xl sm:text-2xl md:text-4xl tracking-wide font-semibold antialiased text-amber-600 mt-5">
+                        About me
+                    </h1>
                 </nav>
                 <main
-                    class="w-[calc(100%-150px)] md:w-[calc(100%-300px)] h-full pl-3 md:pl-20 pt-2 tracking-tight text-sm md:text-lg">
+                    class="w-[calc(100%-150px)] md:w-[calc(100%-300px)] h-full pl-3 md:pl-12 lg:pl-20 pt-2 tracking-tight text-sm md:text-lg">
                     <section id="daw" class="about-sect h-full flex flex-col gap-4">
                         <h1 class="w-full text-end sm:text-base md:text-lg font-semibold text-gray-500 tabular-nums">
                             09/2021<i class="fa-solid fa-right-long mx-2"></i>06/2023
                         </h1>
-                        <h2>
+                        <h2 class="leading-tight indent-4">
                             Completed the Superior Degree Formative Cycle of
                             <span class="text-amber-600 font-medium">Web Applications Development</span>
                             in IES Puerto de la Cruz - Telesforo Bravo.
                         </h2>
-                        <p class="leading-tight">
-                            The duration of this course was 2 years in which various
-                            programming languages and various tools were taught. In the
-                            first year, we saw Java for making applications, XSD, XML, DTD,
-                            etc as a markup language, MySQL as a language for dealing with
-                            databases, and we were introduced to HTML and CSS. Apart from
-                            all this, we saw the principles of agile methodologies and code
-                            refactoring together with unit testing in maven with JUnit.
+                        <p class="leading-tight indent-4">
+                            The duration of this course was 2 years in which various programming languages and various
+                            tools were taught. In the first year, we saw <span
+                                class="text-amber-600 font-medium">Java</span> for making applications, <span
+                                class="text-amber-600 font-medium">XSD</span>, <span
+                                class="text-amber-600 font-medium">XML</span>, <span
+                                class="text-amber-600 font-medium">DTD</span>, etc as a markup language, <span
+                                class="text-amber-600 font-medium">MySQL</span> as a language for dealing with
+                            databases, and we were introduced to <span class="text-amber-600 font-medium">HTML</span>
+                            and <span class="text-amber-600 font-medium">CSS</span>. Apart from all this, we saw the
+                            principles of <span class="text-amber-600 font-medium">Agile Methodologies</span> and code
+                            refactoring together with unit testing in maven with <span
+                                class="text-amber-600 font-medium">JUnit</span>.
                         </p>
-                        <p class="leading-tight">
-                            In the second year, we got deeper into the world of web
-                            programming and gave angular and php as Back End, JavaScript and
-                            Boostrap in the Front End part, and we deployed small
-                            applications with frameworks like Laravel, Django or Express.
+                        <p class="leading-tight indent-4">
+                            In the second year, we got deeper into the world of web programming and learned <span
+                                class="text-amber-600 font-medium">Angular</span> and <span
+                                class="text-amber-600 font-medium">PHP</span> as Back End, <span
+                                class="text-amber-600 font-medium">JavaScript</span> and <span
+                                class="text-amber-600 font-medium">Bootstrap</span> in the Front End part, and we
+                            deployed small applications with frameworks like Laravel, Django or Express.
                         </p>
-                        <div class="flex gap-2 text-2xl">
+                        <div class="h-20 md:h-32 w-auto flex justify-center dark:bg-slate-50/60 rounded-xl">
+                            <img src="./img/iespuertodelacruz_logo.webp" alt="IES Puerto de la Cruz logo" loading="lazy"
+                                class="h-full p-3 object-contain">
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-java"></i>
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/html.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="HTML icon">
                             </div>
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-                                <svg fill="rgb(15,23,42)" width="24px" height="24px" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="m24.129 23.412-.508-.484c-.251-.331-.518-.624-.809-.891l-.005-.004q-.448-.407-.931-.774-.387-.266-1.064-.641c-.371-.167-.661-.46-.818-.824l-.004-.01-.048-.024c.212-.021.406-.06.592-.115l-.023.006.57-.157c.236-.074.509-.122.792-.133h.006c.298-.012.579-.06.847-.139l-.025.006q.194-.048.399-.109t.351-.109v-.169q-.145-.217-.351-.496c-.131-.178-.278-.333-.443-.468l-.005-.004q-.629-.556-1.303-1.076c-.396-.309-.845-.624-1.311-.916l-.068-.04c-.246-.162-.528-.312-.825-.435l-.034-.012q-.448-.182-.883-.399c-.097-.048-.21-.09-.327-.119l-.011-.002c-.117-.024-.217-.084-.29-.169l-.001-.001c-.138-.182-.259-.389-.355-.609l-.008-.02q-.145-.339-.314-.651-.363-.702-.702-1.427t-.651-1.452q-.217-.484-.399-.967c-.134-.354-.285-.657-.461-.942l.013.023c-.432-.736-.863-1.364-1.331-1.961l.028.038c-.463-.584-.943-1.106-1.459-1.59l-.008-.007c-.509-.478-1.057-.934-1.632-1.356l-.049-.035q-.896-.651-1.96-1.282c-.285-.168-.616-.305-.965-.393l-.026-.006-1.113-.278-.629-.048q-.314-.024-.629-.024c-.148-.078-.275-.171-.387-.279-.11-.105-.229-.204-.353-.295l-.01-.007c-.605-.353-1.308-.676-2.043-.93l-.085-.026c-.193-.113-.425-.179-.672-.179-.176 0-.345.034-.499.095l.009-.003c-.38.151-.67.458-.795.84l-.003.01c-.073.172-.115.371-.115.581 0 .368.13.705.347.968l-.002-.003q.544.725.834 1.14.217.291.448.605c.141.188.266.403.367.63l.008.021c.056.119.105.261.141.407l.003.016q.048.206.121.448.217.556.411 1.14c.141.425.297.785.478 1.128l-.019-.04q.145.266.291.52t.314.496c.065.098.147.179.241.242l.003.002c.099.072.164.185.169.313v.001c-.114.168-.191.369-.217.586l-.001.006c-.035.253-.085.478-.153.695l.008-.03c-.223.666-.351 1.434-.351 2.231 0 .258.013.512.04.763l-.003-.031c.06.958.349 1.838.812 2.6l-.014-.025c.197.295.408.552.641.787.168.188.412.306.684.306.152 0 .296-.037.422-.103l-.005.002c.35-.126.599-.446.617-.827v-.002c.048-.474.12-.898.219-1.312l-.013.067c.024-.063.038-.135.038-.211 0-.015-.001-.03-.002-.045v.002q-.012-.109.133-.206v.048q.145.339.302.677t.326.677c.295.449.608.841.952 1.202l-.003-.003c.345.372.721.706 1.127 1.001l.022.015c.212.162.398.337.566.528l.004.004c.158.186.347.339.56.454l.01.005v-.024h.048c-.039-.087-.102-.157-.18-.205l-.002-.001c-.079-.044-.147-.088-.211-.136l.005.003q-.217-.217-.448-.484t-.423-.508q-.508-.702-.969-1.467t-.871-1.555q-.194-.387-.375-.798t-.351-.798c-.049-.099-.083-.213-.096-.334v-.005c-.006-.115-.072-.214-.168-.265l-.002-.001c-.121.206-.255.384-.408.545l.001-.001c-.159.167-.289.364-.382.58l-.005.013c-.141.342-.244.739-.289 1.154l-.002.019q-.072.641-.145 1.318l-.048.024-.024.024c-.26-.053-.474-.219-.59-.443l-.002-.005q-.182-.351-.326-.69c-.248-.637-.402-1.374-.423-2.144v-.009c-.009-.122-.013-.265-.013-.408 0-.666.105-1.308.299-1.91l-.012.044q.072-.266.314-.896t.097-.871c-.05-.165-.143-.304-.265-.41l-.001-.001c-.122-.106-.233-.217-.335-.335l-.003-.004q-.169-.244-.326-.52t-.278-.544c-.165-.382-.334-.861-.474-1.353l-.022-.089c-.159-.565-.336-1.043-.546-1.503l.026.064c-.111-.252-.24-.47-.39-.669l.006.008q-.244-.326-.436-.617-.244-.314-.484-.605c-.163-.197-.308-.419-.426-.657l-.009-.02c-.048-.097-.09-.21-.119-.327l-.002-.011c-.011-.035-.017-.076-.017-.117 0-.082.024-.159.066-.223l-.001.002c.011-.056.037-.105.073-.145.039-.035.089-.061.143-.072h.002c.085-.055.188-.088.3-.088.084 0 .165.019.236.053l-.003-.001c.219.062.396.124.569.195l-.036-.013q.459.194.847.375c.298.142.552.292.792.459l-.018-.012q.194.121.387.266t.411.291h.339q.387 0 .822.037c.293.023.564.078.822.164l-.024-.007c.481.143.894.312 1.286.515l-.041-.019q.593.302 1.125.641c.589.367 1.098.743 1.577 1.154l-.017-.014c.5.428.954.867 1.38 1.331l.01.012c.416.454.813.947 1.176 1.464l.031.047c.334.472.671 1.018.974 1.584l.042.085c.081.154.163.343.234.536l.011.033q.097.278.217.57.266.605.57 1.221t.57 1.198l.532 1.161c.187.406.396.756.639 1.079l-.011-.015c.203.217.474.369.778.422l.008.001c.368.092.678.196.978.319l-.047-.017c.143.065.327.134.516.195l.04.011c.212.065.396.151.565.259l-.009-.005c.327.183.604.363.868.559l-.021-.015q.411.302.822.57.194.145.651.423t.484.52c-.114-.004-.249-.007-.384-.007-.492 0-.976.032-1.45.094l.056-.006c-.536.072-1.022.203-1.479.39l.04-.014c-.113.049-.248.094-.388.129l-.019.004c-.142.021-.252.135-.266.277v.001c.061.076.11.164.143.26l.002.006c.034.102.075.19.125.272l-.003-.006c.119.211.247.393.391.561l-.004-.005c.141.174.3.325.476.454l.007.005q.244.194.508.399c.161.126.343.25.532.362l.024.013c.284.174.614.34.958.479l.046.016c.374.15.695.324.993.531l-.016-.011q.291.169.58.375t.556.399c.073.072.137.152.191.239l.003.005c.091.104.217.175.36.193h.003v-.048c-.088-.067-.153-.16-.184-.267l-.001-.004c-.025-.102-.062-.191-.112-.273l.002.004zm-18.576-19.205q-.194 0-.363.012c-.115.008-.222.029-.323.063l.009-.003v.024h.048q.097.145.244.326t.266.351l.387.798.048-.024c.113-.082.2-.192.252-.321l.002-.005c.052-.139.082-.301.082-.469 0-.018 0-.036-.001-.054v.003c-.045-.044-.082-.096-.108-.154l-.001-.003-.081-.182c-.053-.084-.127-.15-.214-.192l-.003-.001c-.094-.045-.174-.102-.244-.169z" />
-                                </svg>
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/css.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="CSS icon">
                             </div>
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-                                
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/dtd.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="DTD icon">
                             </div>
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/xml.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="XML icon">
                             </div>
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/java.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="Java icon">
                             </div>
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/mysql.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="MySQL icon">
                             </div>
                             <div
-                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-xl flex items-center justify-center">
-
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/php.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="MySQL icon">
+                            </div>
+                            <div
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/javascript.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="JavaScript icon">
+                            </div>
+                            <div
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/bootstrap.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="Bootstrap icon">
+                            </div>
+                            <div
+                                class="h-6 md:h-8 lg:h-10 aspect-square bg-amber-600 text-slate-900 rounded-md lg:rounded-xl flex items-center justify-center hover:scale-110 duration-200">
+                                <img loading="lazy" src="./img/angular.webp"
+                                    class="h-4 md:h-6 lg:h-7 aspect-square object-contain" alt="Angular icon">
                             </div>
                         </div>
                     </section>
@@ -182,13 +217,20 @@
                         <h2>
 
                         </h2>
-                        <p class="leading-tight">
+                        <p class="leading-tight indent-4">
                             Almost finishing the course of the Superior Degree Formative Cycle in Development of Web
-                            Applications, they put us in the company Atos to carry out the company practices. There we
-                            were trained in the Spring Boot framework and we continue to see Angular as Front. As a
-                            final project we had to make the database in MySQL, the Back End in Spring Boot and the
-                            Front End in Angular + Bootstrap as a CSS tool.
+                            Applications, they put us in the company <span
+                                class="text-amber-600 font-medium">Atos</span> to carry out the company practices. There
+                            we were trained in the Spring Boot framework and we continue to see Angular as Front. As a
+                            final project we had to make the database in MySQL, the Back End in <span
+                                class="text-amber-600 font-medium">Spring Boot</span> and the Front End in <span
+                                class="text-amber-600 font-medium">Angular</span> + <span
+                                class="text-amber-600 font-medium">Boostrap</span> as a CSS tool.
                         </p>
+                        <div class="h-20 md:h-32 flex justify-center dark:bg-slate-800/60 rounded-xl">
+                            <img src="./img/atos_logo.webp" alt="Atos logo" loading="lazy"
+                                class="h-full p-3 object-contain">
+                        </div>
                     </section>
                     <section id="aws" class="about-sect h-full flex flex-col gap-4">aws</section>
                     <section id="eviden" class="about-sect h-full flex flex-col gap-4">
