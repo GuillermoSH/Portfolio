@@ -12,30 +12,35 @@
 
 <body class="bg-slate-200 dark:bg-slate-900 dark:text-white relative overflow-x-hidden">
     <header
-        class="h-[60px] w-screen dark:bg-slate-900/50 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 ps-4 pe-6 md:ps-10 md:pe-14 flex items-center justify-between"
+        class="h-[60px] w-screen dark:bg-slate-900/70 backdrop-blur-sm dark:text-white fixed top-0 z-10 border-b-2 border-amber-600 ps-4 pe-6 md:ps-10 md:pe-14 flex justify-between duration-300"
         id="header">
-        <a href="#home" class="text-xl text-amber-600 font-semibold flex items-center justify-center gap-3 hover:slide">
+        <a href="#home"
+            class="h-[60px] text-xl text-amber-600 font-semibold flex items-center justify-center gap-3 hover:slide">
             <img src="./img/logo.webp" alt="GuillermoSH Logo" class="h-8 md:h-10 aspect-square" />
             <h1 href="#home">GuillermoSH</h1>
         </a>
-        <nav class="hidden md:flex text-xl font-semibold" id="menu" aria-label="Navigation menu">
-            <ul class="flex gap-14">
-                <li>
+        <nav class="hidden md:flex text-xl font-semibold md:h-[60px] md:relative w-[calc(100%-40px)] md:w-auto"
+            aria-label="Navigation menu">
+            <ul class="flex gap-4 md:gap-14 flex-col items-center md:flex-row w-full md:w-auto">
+                <li class="p-2 bg-slate-600/60 md:bg-transparent w-full rounded-lg text-center" onclick="toggleNavMenu()">
                     <a class="hover-underline-animation relative" href="#home" title="Home page">Home</a>
                 </li>
-                <li>
+                <li class="p-2 bg-slate-600/60 md:bg-transparent w-full rounded-lg text-center" onclick="toggleNavMenu()">
                     <a class="hover-underline-animation relative" href="#about" title="About page">About</a>
                 </li>
-                <li>
+                <li class="p-2 bg-slate-600/60 md:bg-transparent w-full rounded-lg text-center" onclick="toggleNavMenu()">
                     <a class="hover-underline-animation relative" href="#projects" title="Projects page">Projects</a>
                 </li>
-                <li>
+                <li class="p-2 bg-slate-600/60 md:bg-transparent w-full rounded-lg text-center" onclick="toggleNavMenu()">
                     <a class="hover-underline-animation relative" href="#tools" title="Tools page">Tools</a>
                 </li>
             </ul>
         </nav>
-        <button class="md:hidden text-amber-600 duration-200 hover:text-amber-200" aria-label="Menu button">
+        <button
+            class="h-[60px] flex md:hidden text-amber-600 duration-200 hover:text-amber-200 w-5 justify-center items-center"
+            aria-label="Menu button" onclick="toggleNavMenu()" id="burguer-btn">
             <i class="fa-solid fa-burger text-xl"></i>
+            <i class="fa-solid fa-xmark text-xl hiddenplus"></i>
         </button>
     </header>
     <main class="min-h-screen">

@@ -19,7 +19,18 @@ function changeInfoAbout(option) {
 
     section.classList.add("slide");
     option.classList.add("active");
-    
-    setTimeout(() => {section.classList.remove("hidden")}, 200);
-    setTimeout(() => {section.classList.remove("slide")}, 400);
+
+    setTimeout(() => { section.classList.remove("hidden") }, 200);
+    setTimeout(() => { section.classList.remove("slide") }, 400);
+}
+
+function toggleNavMenu() {
+    let header = document.getElementById("header");
+    let burguerButton = document.getElementById("burguer-btn")
+
+    for (const icon of burguerButton.children) {
+        icon.classList.toggle("hiddenplus");
+    }
+
+    header.classList.toggle("active");
 }
