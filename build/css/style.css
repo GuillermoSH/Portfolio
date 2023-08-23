@@ -656,6 +656,15 @@ video {
   height: 100vh;
 }
 
+.h-auto {
+  height: auto;
+}
+
+.h-max {
+  height: -moz-max-content;
+  height: max-content;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1316,6 +1325,10 @@ body::-webkit-scrollbar-thumb {
 
   .md\:bg-transparent {
     background-color: transparent;
+  }
+
+  .md\:p-0 {
+    padding: 0px;
   }
 
   .md\:px-14 {
