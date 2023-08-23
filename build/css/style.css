@@ -600,12 +600,12 @@ video {
   display: flex;
 }
 
-.hidden {
-  display: none;
-}
-
 .aspect-square {
   aspect-ratio: 1 / 1;
+}
+
+.h-0 {
+  height: 0px;
 }
 
 .h-10 {
@@ -660,6 +660,10 @@ video {
   min-height: 100vh;
 }
 
+.w-0 {
+  width: 0px;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -670,10 +674,6 @@ video {
 
 .w-\[calc\(100\%-150px\)\] {
   width: calc(100% - 150px);
-}
-
-.w-\[calc\(100\%-40px\)\] {
-  width: calc(100% - 40px);
 }
 
 .w-auto {
@@ -1010,6 +1010,10 @@ video {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.opacity-0 {
+  opacity: 0;
+}
+
 .backdrop-blur-sm {
   --tw-backdrop-blur: blur(4px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -1095,9 +1099,9 @@ body::-webkit-scrollbar-thumb {
   }
 
   #header.active nav {
-    transition: all 0.3s;
+    transition: all 0.3s 0.1s, width 0s;
     opacity: 1;
-    display: flex;
+    width: calc(100% - 40px);
     position: absolute;
     top: 60px;
   }
@@ -1361,6 +1365,10 @@ body::-webkit-scrollbar-thumb {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .md\:opacity-100 {
+    opacity: 1;
   }
 }
 

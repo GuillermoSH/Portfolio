@@ -62,9 +62,9 @@ body::-webkit-scrollbar-thumb {
     }
 
     #header.active nav {
-        transition: all 0.3s;
+        transition: all 0.3s 0.1s, width 0s;
         opacity: 1;
-        display: flex;
+        width: calc(100% - 40px);
         position: absolute;
         top: 60px;
     }
