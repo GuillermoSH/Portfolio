@@ -656,13 +656,8 @@ video {
   height: 100vh;
 }
 
-.h-auto {
-  height: auto;
-}
-
-.h-max {
-  height: -moz-max-content;
-  height: max-content;
+.min-h-\[600px\] {
+  min-height: 600px;
 }
 
 .min-h-screen {
