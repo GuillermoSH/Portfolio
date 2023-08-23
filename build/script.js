@@ -1,7 +1,7 @@
 let sections = document.getElementsByClassName("about-sect");
 
 for (let i = 1; i < sections.length; i++) {
-    sections[i].classList.add("hidden")
+    sections[i].classList.add("hiddenplus")
 }
 
 function changeInfoAbout(option) {
@@ -14,13 +14,13 @@ function changeInfoAbout(option) {
     }
 
     for (const section of sections) {
-        section.classList.add("hidden")
+        section.classList.add("hiddenplus")
     }
 
     section.classList.add("slide");
     option.classList.add("active");
 
-    setTimeout(() => { section.classList.remove("hidden") }, 200);
+    setTimeout(() => { section.classList.remove("hiddenplus") }, 200);
     setTimeout(() => { section.classList.remove("slide") }, 400);
 }
 
