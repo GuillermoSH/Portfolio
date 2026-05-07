@@ -47,40 +47,6 @@ export function Education({ locale }: { locale: Locale }) {
           <h3 className="font-display text-lg font-semibold text-stone-900 dark:text-stone-50">
             {tr(
               locale,
-              "CFGS — Desarrollo de aplicaciones web",
-              "Higher VET — Web application development",
-            )}
-          </h3>
-          <p className="mt-1 text-sm text-teal-800 dark:text-accent-dark">
-            IES Puerto de la Cruz · Telesforo Bravo
-          </p>
-          <p className="mt-2 text-sm text-muted dark:text-muted-dark">2021 — 2023</p>
-          <p className="mt-4 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
-            {tr(
-              locale,
-              "Base sólida en Java, bases de datos, HTML/CSS/JS, Angular, PHP, metodologías ágiles y pruebas con JUnit — coherente con el itinerario que luego apliqué en prácticas y empresa.",
-              "Solid foundation in Java, databases, HTML/CSS/JS, Angular, PHP, agile methodologies and JUnit testing — aligned with what I later applied in internships and company work.",
-            )}
-          </p>
-          <div className="mt-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
-              {tr(locale, "Stack DAW", "DAW stack")}
-            </p>
-            <ul className="mt-2 flex flex-wrap gap-2">
-              {dawStack.map((label) => (
-                <li key={label}>
-                  <Chip as="span" className="py-1.5 text-xs">
-                    {label}
-                  </Chip>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </article>
-        <article className="card">
-          <h3 className="font-display text-lg font-semibold text-stone-900 dark:text-stone-50">
-            {tr(
-              locale,
               "CFGS — Desarrollo de aplicaciones multiplataforma",
               "Higher VET — Multiplatform application development",
             )}
@@ -104,6 +70,40 @@ export function Education({ locale }: { locale: Locale }) {
             </p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {damStack.map((label) => (
+                <li key={label}>
+                  <Chip as="span" className="py-1.5 text-xs">
+                    {label}
+                  </Chip>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+        <article className="card">
+          <h3 className="font-display text-lg font-semibold text-stone-900 dark:text-stone-50">
+            {tr(
+              locale,
+              "CFGS — Desarrollo de aplicaciones web",
+              "Higher VET — Web application development",
+            )}
+          </h3>
+          <p className="mt-1 text-sm text-teal-800 dark:text-accent-dark">
+            IES Puerto de la Cruz · Telesforo Bravo
+          </p>
+          <p className="mt-2 text-sm text-muted dark:text-muted-dark">2021 — 2023</p>
+          <p className="mt-4 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+            {tr(
+              locale,
+              "Base sólida en Java, bases de datos, HTML/CSS/JS, Angular, PHP, metodologías ágiles y pruebas con JUnit — coherente con el itinerario que luego apliqué en prácticas y empresa.",
+              "Solid foundation in Java, databases, HTML/CSS/JS, Angular, PHP, agile methodologies and JUnit testing — aligned with what I later applied in internships and company work.",
+            )}
+          </p>
+          <div className="mt-5">
+            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              {tr(locale, "Stack DAW", "DAW stack")}
+            </p>
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {dawStack.map((label) => (
                 <li key={label}>
                   <Chip as="span" className="py-1.5 text-xs">
                     {label}

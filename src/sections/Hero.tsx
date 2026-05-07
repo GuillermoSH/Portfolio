@@ -32,7 +32,7 @@ export function Hero({ locale }: { locale: Locale }) {
                   {SITE.fullName}
                 </strong>
                 , full-stack software developer based in{" "}
-                <span className="whitespace-nowrap">{SITE.location}</span>.
+                <span>{SITE.location}</span>.
                 Experience in corporate environments with{" "}
                 <strong className="font-semibold text-stone-800 dark:text-stone-200">
                   Angular
@@ -55,7 +55,7 @@ export function Hero({ locale }: { locale: Locale }) {
                   {SITE.fullName}
                 </strong>
                 , desarrollador de software full-stack en{" "}
-                <span className="whitespace-nowrap">{SITE.location}</span>.
+                <span>{SITE.location}</span>.
                 Experiencia en entornos corporativos con{" "}
                 <strong className="font-semibold text-stone-800 dark:text-stone-200">
                   Angular
@@ -101,17 +101,19 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <a
-        href="#trayectoria"
-        className="absolute bottom-6 left-1/2 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full border border-stone-200 bg-white/90 text-stone-700 shadow-md backdrop-blur animate-bounce dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-stone-200"
-        aria-label={tr(
-          locale,
-          "Ir a trayectoria profesional",
-          "Go to professional experience",
-        )}
-      >
-        <i className="fa-solid fa-arrow-down" aria-hidden />
-      </a>
+      <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
+        <a
+          href="#trayectoria"
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-stone-200 bg-white/90 text-stone-700 shadow-md backdrop-blur animate-bounce dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-stone-200"
+          aria-label={tr(
+            locale,
+            "Ir a trayectoria profesional",
+            "Go to professional experience",
+          )}
+        >
+          <i className="fa-solid fa-arrow-down" aria-hidden />
+        </a>
+      </div>
     </section>
   );
 }

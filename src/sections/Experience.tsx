@@ -11,6 +11,18 @@ export function Experience({ locale }: { locale: Locale }) {
   const jobs =
     locale === "en"
       ? EXPERIENCE.map((job) => {
+          if (job.id === "tenaasesores") {
+            return {
+              ...job,
+              title: "Internship — Tenaasesores",
+              location: "Los Realejos · Consultancy firm",
+              bullets: [
+                "Designed and implemented internal automations with n8n and Odoo Enterprise Online, connecting administrative workflows and reducing operational friction.",
+                "Measurable efficiency impact: during peak weeks, automated flows reported up to 26 hours per week of saved manual work.",
+              ],
+              stackNote: "Stack: n8n · Odoo Enterprise Online",
+            };
+          }
           if (job.id === "eviden") {
             return {
               ...job,

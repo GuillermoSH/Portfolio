@@ -40,6 +40,18 @@ export type ExperienceItem = {
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
+    id: "tenaasesores",
+    title: "Prácticas de empresa — Tenaasesores",
+    period: "Feb 2026 — May 2026",
+    datetime: "2026-02",
+    location: "Los Realejos · Asesoría",
+    bullets: [
+      "Diseño e implementación de automatizaciones internas con n8n y Odoo Enterprise Online, conectando procesos administrativos y reduciendo fricción operativa.",
+      "Impacto medible en eficiencia: en semanas pico, los flujos automatizados registraron hasta 26 horas semanales de ahorro de trabajo manual.",
+    ],
+    stackNote: "Stack: n8n · Odoo Enterprise Online",
+  },
+  {
     id: "eviden",
     title: "Software Developer — Eviden",
     period: "Jul 2023 — Dic 2024",
@@ -88,8 +100,16 @@ export const STACK_CHIPS = [
   "Integración",
   "Bases de datos",
   "UiPath",
-  "n8n",
   "Odoo",
+] as const;
+
+export const LEARNING_STACK_CHIPS = [
+  "Next.js",
+  "Supabase",
+  "n8n",
+  "Sistemas agénticos",
+  "Docker",
+  "Seguridad de aplicaciones",
 ] as const;
 
 export type ProjectItem = {
