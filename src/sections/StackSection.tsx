@@ -1,35 +1,49 @@
-import { Chip } from "../components/ui/Chip";
-import { SectionHeading } from "../components/ui/SectionHeading";
-import { STACK_CHIPS } from "../data/site";
+import { STACK_GROUPS, NAV_LINKS, NAV_LINKS_EN } from "../data/site";
+import { RevealSection } from "../components/RevealSection";
+import { Tag } from "../components/Tag";
 import type { Locale } from "../lib/i18n";
-import { tr } from "../lib/i18n";
 
-export function StackSection({ locale }: { locale: Locale }) {
-  const stackChips =
-    locale === "en"
-      ? STACK_CHIPS.map((label) => {
-          if (label === "Integración") return "Integration";
-          if (label === "Bases de datos") return "Databases";
-          return label;
-        })
-      : STACK_CHIPS;
+type StackSectionProps = {
+  locale: Locale;
+};
+
+function sectionTitle(locale: Locale) {
+  return (locale === "en" ? NAV_LINKS_EN : NAV_LINKS).find(
+    (l) => l.href === "#perfil",
+  )!.label;
+}
+
+export function StackSection({ locale }: StackSectionProps) {
+  const titleId = "stack-title";
 
   return (
-    <section id="stack" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      <SectionHeading
-        eyebrow={tr(locale, "Habilidades", "Skills")}
-        title={tr(locale, "Stack y herramientas", "Stack and tools")}
-        description={tr(
-          locale,
-          "Palabras clave de mi perfil: integración, datos, entrega y calidad.",
-          "Core profile keywords: integration, data, delivery and quality.",
-        )}
-      />
-      <div className="mt-8 flex flex-wrap gap-2">
-        {stackChips.map((label) => (
-          <Chip key={label}>{label}</Chip>
+    <RevealSection
+      id="perfil"
+      className="section-block border-t border-border"
+      ariaLabelledBy={titleId}
+    >
+      <h2 id={titleId} className="section-title">
+        {sectionTitle(locale)}
+      </h2>
+
+      <dl className="space-y-6">
+        {STACK_GROUPS.map((group) => (
+          <div key={group.id} className="grid gap-3 sm:grid-cols-[7rem_1fr] sm:items-start">
+            <dt className="text-sm font-semibold text-muted">
+              {locale === "en" ? group.labelEn : group.labelEs}
+            </dt>
+            <dd>
+              <ul className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <li key={item}>
+                    <Tag>{item}</Tag>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
         ))}
-      </div>
-    </section>
+      </dl>
+    </RevealSection>
   );
 }

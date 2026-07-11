@@ -1,45 +1,47 @@
 import { useEffect, useState } from "react";
+import { Nav } from "./components/Nav";
 import { SkipLink } from "./components/SkipLink";
-import { SiteFooter } from "./components/SiteFooter";
-import { SiteHeader } from "./components/SiteHeader";
-import { useDocumentTitleFlash } from "./hooks/useDocumentTitleFlash";
-import type { Locale } from "./lib/i18n";
-import { Certifications } from "./sections/Certifications";
-import { Education } from "./sections/Education";
-import { Experience } from "./sections/Experience";
-import { Hero } from "./sections/Hero";
-import { ProjectsSection } from "./sections/ProjectsSection";
+import { IntroSection } from "./sections/IntroSection";
+import { TrackSection } from "./sections/TrackSection";
+import { WorkSection } from "./sections/WorkSection";
 import { StackSection } from "./sections/StackSection";
-import { ToolsSection } from "./sections/ToolsSection";
+import { ExtraSection } from "./sections/ExtraSection";
+import { useTheme } from "./hooks/useTheme";
+import type { Locale } from "./lib/i18n";
+import { footerCopy } from "./lib/present";
 
 export default function App() {
   const [locale, setLocale] = useState<Locale>("es");
-  const pageTitle =
-    locale === "en"
-      ? "Guillermo Sicilia Hernández — Full-stack developer"
-      : "Guillermo Sicilia Hernández — Desarrollador full-stack";
-
-  useDocumentTitleFlash(pageTitle);
+  const { theme, toggleTheme } = useTheme();
+  const year = new Date().getFullYear();
 
   useEffect(() => {
-    document.title = pageTitle;
     document.documentElement.lang = locale;
-  }, [locale, pageTitle]);
+    document.title =
+      locale === "en"
+        ? "Guillermo Sicilia Hernández — Full-stack developer"
+        : "Guillermo Sicilia Hernández — Desarrollador full-stack";
+  }, [locale]);
 
   return (
     <>
       <SkipLink locale={locale} />
-      <SiteHeader locale={locale} onLocaleChange={setLocale} />
-      <main id="main" className="pt-14 sm:pt-16">
-        <Hero locale={locale} />
-        <Experience locale={locale} />
-        <Education locale={locale} />
-        <Certifications locale={locale} />
+      <Nav
+        locale={locale}
+        onLocaleChange={setLocale}
+        theme={theme}
+        onThemeToggle={toggleTheme}
+      />
+      <main id="main" className="pt-14">
+        <IntroSection locale={locale} />
+        <TrackSection locale={locale} />
+        <WorkSection locale={locale} />
         <StackSection locale={locale} />
-        <ProjectsSection locale={locale} />
-        <ToolsSection locale={locale} />
+        <ExtraSection locale={locale} />
       </main>
-      <SiteFooter locale={locale} />
+      <footer className="border-t border-border py-8 text-center text-xs text-muted">
+        {footerCopy(locale, year)}
+      </footer>
     </>
   );
 }

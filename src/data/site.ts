@@ -12,11 +12,17 @@ export const SITE = {
 export const NAV_LINKS = [
   { href: "#inicio", label: "Inicio" },
   { href: "#trayectoria", label: "Trayectoria" },
-  { href: "#formacion", label: "Formación" },
-  { href: "#certificaciones", label: "Certificaciones" },
-  { href: "#stack", label: "Stack" },
   { href: "#proyectos", label: "Proyectos" },
-  { href: "#herramientas", label: "Herramientas" },
+  { href: "#perfil", label: "Perfil" },
+  { href: "#mas", label: "Más" },
+] as const;
+
+export const NAV_LINKS_EN = [
+  { href: "#inicio", label: "Home" },
+  { href: "#trayectoria", label: "Experience" },
+  { href: "#proyectos", label: "Projects" },
+  { href: "#perfil", label: "Profile" },
+  { href: "#mas", label: "More" },
 ] as const;
 
 export const HERO_CHIPS = [
@@ -25,8 +31,10 @@ export const HERO_CHIPS = [
   "React",
   "Oracle SQL",
   "AWS",
-  "Git / Jira",
+  "TypeScript",
 ] as const;
+
+export const FEATURED_PROJECT_ID = "cvorotava-team-manager" as const;
 
 export type ExperienceItem = {
   id: string;
@@ -46,11 +54,11 @@ export const EXPERIENCE: ExperienceItem[] = [
     datetime: "2023-07",
     location: "Santa Cruz de Tenerife · Sistema de gestión para Orange",
     bullets: [
-      "Desarrollo e integración de funcionalidades en la aplicación de gestión, optimizando rendimiento y alineando cambios con negocio.",
-      "Scripts SQL para poblar bases de datos en entornos no productivos e integración de nuevos productos.",
-      "Resolución de incidencias: investigación, depuración y soluciones para continuidad del servicio.",
+      "Integración de funcionalidades en plataforma de gestión, alineando rendimiento y negocio.",
+      "Scripts SQL para entornos no productivos e incorporación de nuevos productos.",
+      "Incidencias en producción: investigación, depuración y continuidad de servicio.",
     ],
-    stackNote: "Stack: integración y diseño (suite corporativa), Oracle SQL · Jira",
+    stackNote: "Oracle SQL · suite corporativa · Jira",
   },
   {
     id: "atos",
@@ -65,31 +73,39 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
 ];
 
+export const STACK_GROUPS = [
+  {
+    id: "backend",
+    labelEs: "Backend",
+    labelEn: "Backend",
+    items: ["Java", "Spring Boot", "TypeScript", "Integración"],
+  },
+  {
+    id: "frontend",
+    labelEs: "Frontend",
+    labelEn: "Frontend",
+    items: ["Angular", "React", "Next.js", "React Native", "Flutter"],
+  },
+  {
+    id: "data",
+    labelEs: "Datos",
+    labelEn: "Data",
+    items: ["SQL / Oracle SQL", "Bases de datos"],
+  },
+  {
+    id: "ops",
+    labelEs: "Ops y automatización",
+    labelEn: "Ops & automation",
+    items: ["AWS", "Git", "Jira", "UiPath", "n8n", "Odoo"],
+  },
+] as const;
+
 export const AWS_COURSES = [
   "AWS Cloud Practitioner Essentials",
   "AWS Foundations — Getting Started",
   "Introduction to AWS CAF",
   "Job Roles in the Cloud",
   "Getting Started with Cloud Acquisition",
-] as const;
-
-export const STACK_CHIPS = [
-  "TypeScript",
-  "Java",
-  "React",
-  "Next.js",
-  "React Native",
-  "Flutter",
-  "SQL / Oracle SQL",
-  "Spring Boot",
-  "Angular",
-  "Git",
-  "Jira",
-  "Integración",
-  "Bases de datos",
-  "UiPath",
-  "n8n",
-  "Odoo",
 ] as const;
 
 export type ProjectItem = {
@@ -105,35 +121,34 @@ export const FEATURED_PROJECTS: ProjectItem[] = [
     id: "cvorotava-team-manager",
     name: "CVOrotava-Team-Manager",
     description:
-      "Aplicacion web para gestion centralizada de informacion deportiva de club.",
-    tech: ["TypeScript", "Aplicación web", "Gestión deportiva"],
+      "Gestión centralizada de información deportiva para un club de voleibol.",
+    tech: ["TypeScript", "Web", "Gestión deportiva"],
     href: "https://github.com/GuillermoSH/CVOrotava-Team-Manager",
-  },
-  {
-    id: "tic-tac-toe",
-    name: "tic-tac-toe",
-    description:
-      "Tres en raya moderno con animaciones, estadisticas detalladas y temas personalizables.",
-    tech: ["TypeScript", "Animaciones UI", "UX de juego"],
-    href: "https://github.com/GuillermoSH/tic-tac-toe",
-  },
-  {
-    id: "cvorotava-back",
-    name: "CVOrotava-back",
-    description:
-      "Backend Java para dashboard interno de club de voleibol con enfoque en gestion de tareas.",
-    tech: ["Java", "API", "Backend"],
-    href: "https://github.com/GuillermoSH/CVOrotava-back",
   },
   {
     id: "netpulse",
     name: "NetPulse",
     description:
-      "Marcador de voleibol con diseño moderno, foco en dinamismo de partido y control de rachas de puntos.",
-    tech: ["TypeScript", "UX deportiva", "Voleibol"],
+      "Marcador de voleibol con control de rachas y dinámica de partido.",
+    tech: ["TypeScript", "UX deportiva"],
     href: "https://github.com/GuillermoSH/NetPulse",
   },
-] as const;
+  {
+    id: "tic-tac-toe",
+    name: "tic-tac-toe",
+    description:
+      "Tres en raya con animaciones, estadísticas y temas personalizables.",
+    tech: ["TypeScript", "UI"],
+    href: "https://github.com/GuillermoSH/tic-tac-toe",
+  },
+  {
+    id: "cvorotava-back",
+    name: "CVOrotava-back",
+    description: "Backend Java para dashboard interno y gestión de tareas.",
+    tech: ["Java", "API"],
+    href: "https://github.com/GuillermoSH/CVOrotava-back",
+  },
+];
 
 export type CertItem = {
   category: string;
@@ -147,21 +162,21 @@ export const CERTIFICATIONS: CertItem[] = [
   {
     category: "Inglés",
     title: "Speexx English · B2.1 (CEFR)",
-    date: "Noviembre 2024",
+    date: "Nov 2024",
     linkLabel: "Ver certificado",
     href: "https://portal.speexx.com/certificate/YTUzMGM2ZGQtYTQ2Zi00OWQ2LWE2NTItNjY0MTk4OGNmNzI5Ojo4MQ==",
   },
   {
     category: "Cloud",
     title: "AWS Certified Cloud Practitioner",
-    date: "Jul 2024 — caducidad Jul 2027",
+    date: "Jul 2024 — Jul 2027",
     linkLabel: "Ver en Credly",
     href: "https://www.credly.com/badges/f62148b5-f49e-4ee3-8443-cfbbf8160728",
   },
   {
     category: "Automatización",
     title: "UiPath Automation Developer Professional",
-    date: "Oct 2024 — caducidad Oct 2026",
+    date: "Oct 2024 — Oct 2026",
     linkLabel: "Ver credencial",
     href: "https://credentials.uipath.com/9f728270-5c0b-45cb-b781-d0477f8526d5",
   },
@@ -173,45 +188,30 @@ export type DailyTool = {
   title: string;
   description: string;
   href: string;
-  linkLabel: string;
-  iconWrapperClass?: string;
-  gridClass?: string;
 };
 
 export const DAILY_TOOLS: DailyTool[] = [
   {
     id: "github",
-    iconClass: "fa-brands fa-github text-2xl",
+    iconClass: "fa-brands fa-github",
     title: "GitHub",
     description:
-      "Repos, CI, revisiones y colaboración: el centro de gravedad del día a día de código.",
+      "Repos, CI y revisiones: centro de gravedad del día a día de código.",
     href: "https://github.com/",
-    linkLabel: "github.com",
-    iconWrapperClass:
-      "bg-stone-900 text-white shadow-inner dark:bg-stone-100 dark:text-stone-900",
   },
   {
     id: "notion",
-    iconClass: "fa-solid fa-n text-xl font-black",
+    iconClass: "fa-solid fa-n font-black",
     title: "Notion",
-    description:
-      "Notas, tableros y documentación viva: dejo ahí contexto de proyectos y listas que no quiero perder.",
+    description: "Contexto de proyectos, tableros y documentación viva.",
     href: "https://www.notion.so/",
-    linkLabel: "notion.so",
-    iconWrapperClass:
-      "bg-stone-800 text-white dark:bg-stone-200 dark:text-stone-900",
   },
   {
     id: "n8n",
-    iconClass: "fa-solid fa-diagram-project text-xl",
+    iconClass: "fa-solid fa-diagram-project",
     title: "n8n",
-    description:
-      "Automatización low-code: encadenar APIs, webhooks y tareas repetitivas sin reinventar la rueda cada vez.",
+    description: "Automatización: APIs, webhooks y tareas repetitivas.",
     href: "https://n8n.io/",
-    linkLabel: "n8n.io",
-    iconWrapperClass:
-      "bg-gradient-to-br from-red-500 to-orange-500 text-white shadow-lg shadow-orange-500/25",
-    gridClass: "sm:col-span-2 lg:col-span-1",
   },
 ];
 
@@ -235,7 +235,3 @@ export const HOMELAB_ITEMS: HomelabLink[] = [
   { type: "text", label: "Docker / Compose" },
   { type: "text", label: "Red local & DNS" },
 ];
-
-/** Extra classes for homelab chips (base `.chip` added by Chip or manually on `<a>`). */
-export const HOMELAB_CHIP_EXTRA =
-  "border-teal-200 bg-white/90 py-2 text-stone-700 transition hover:border-teal-400 dark:border-zinc-600 dark:bg-zinc-900/90 dark:text-stone-200 dark:hover:border-teal-500/50";

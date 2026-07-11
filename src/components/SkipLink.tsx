@@ -1,13 +1,17 @@
 import type { Locale } from "../lib/i18n";
-import { tr } from "../lib/i18n";
+import { skipLabel } from "../lib/present";
 
-export function SkipLink({ locale }: { locale: Locale }) {
+type SkipLinkProps = {
+  locale: Locale;
+};
+
+export function SkipLink({ locale }: SkipLinkProps) {
   return (
     <a
       href="#main"
-      className="absolute left-[-9999px] top-4 z-[100] rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white focus:left-4 dark:bg-accent-dark dark:text-canvas-dark"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-accent-on"
     >
-      {tr(locale, "Saltar al contenido", "Skip to content")}
+      {skipLabel(locale)}
     </a>
   );
 }

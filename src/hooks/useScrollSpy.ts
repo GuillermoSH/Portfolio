@@ -7,12 +7,16 @@ export function useScrollSpy(): string {
   useEffect(() => {
     const links = Array.from(
       document.querySelectorAll<HTMLAnchorElement>(
-        ".header-panel a[href^='#']",
+        "#site-header a[href^='#']",
       ),
     );
-    const ids = links
-      .map((a) => a.getAttribute("href"))
-      .filter((h): h is string => Boolean(h && h.length > 1));
+    const ids = [
+      ...new Set(
+        links
+          .map((a) => a.getAttribute("href"))
+          .filter((h): h is string => Boolean(h && h.length > 1)),
+      ),
+    ];
     const sections = ids
       .map((id) => document.querySelector(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -26,7 +30,7 @@ export function useScrollSpy(): string {
           setActiveHref(`#${entry.target.id}`);
         });
       },
-      { rootMargin: "-38% 0px -38% 0px", threshold: 0 },
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
     );
 
     sections.forEach((sec) => observer.observe(sec));
