@@ -194,7 +194,7 @@ export function IntroSection({ locale }: IntroSectionProps) {
                   href={SITE.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-accent"
+                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-secondary transition-colors hover:text-secondary-deep"
                 >
                   GitHub
                   <span

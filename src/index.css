@@ -11,6 +11,8 @@
     --accent: oklch(0.63 0.19 38);
     --accent-deep: oklch(0.55 0.2 36);
     --accent-on: oklch(0.14 0.02 38);
+    --secondary: oklch(0.56 0.11 198);
+    --secondary-deep: oklch(0.48 0.12 195);
     --border: oklch(0.18 0.012 265 / 0.12);
     --focus-ring: oklch(0.63 0.19 38);
   }
@@ -23,6 +25,8 @@
     --accent: oklch(0.63 0.19 38);
     --accent-deep: oklch(0.55 0.2 36);
     --accent-on: oklch(0.14 0.02 38);
+    --secondary: oklch(0.62 0.1 198);
+    --secondary-deep: oklch(0.54 0.11 195);
     --border: oklch(0.93 0.006 265 / 0.1);
     --focus-ring: oklch(0.63 0.19 38);
   }

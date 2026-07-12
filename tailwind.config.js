@@ -17,6 +17,10 @@ module.exports = {
           deep: "var(--accent-deep)",
           on: "var(--accent-on)",
         },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          deep: "var(--secondary-deep)",
+        },
         border: "var(--border)",
       },
       maxWidth: {

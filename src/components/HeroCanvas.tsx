@@ -1,36 +1,85 @@
-import { Line } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { createContext, useContext, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { heroScrollRef } from "../lib/heroScroll";
 
 const ACCENT = "#d45a28";
+const SECONDARY = "#358f84";
 const STAR_COUNT = 200;
 
-/** Saturated planet tones — visible on dark canvas and light canvas, not ink-white */
 const PLANET_COLORS = [
-  "#2d9a88", // teal (DSP)
-  "#c05830", // rust
-  "#3a6888", // ocean
+  "#358f84", // teal
+  "#5a7594", // slate
+  "#9570a0", // malva
   "#9a6838", // ochre
-  "#6a4840", // umber
-  "#4a8070", // sage teal
+  "#c05830", // rust
+  "#6a5848", // umber
 ] as const;
 
-/** Cosine ease: slow near nodes (t=0 and t=1) */
 function travelEase(t: number) {
   return 0.5 - 0.5 * Math.cos(t * Math.PI);
 }
 
 type Vec3 = [number, number, number];
 
-const NODES: { id: string; pos: Vec3; size: number; colorIndex: number }[] = [
-  { id: "hub", pos: [0, 0, 0], size: 0.15, colorIndex: 0 },
-  { id: "ingest", pos: [2.4, 0.4, 0.6], size: 0.1, colorIndex: 4 },
-  { id: "process", pos: [-2.0, -0.55, 0.5], size: 0.11, colorIndex: 1 },
-  { id: "deploy", pos: [0.6, 1.7, -0.4], size: 0.095, colorIndex: 3 },
-  { id: "monitor", pos: [-1.0, 1.2, 0.9], size: 0.085, colorIndex: 2 },
-  { id: "relay", pos: [1.5, -1.1, -0.7], size: 0.08, colorIndex: 5 },
+type PlanetConfig = {
+  id: string;
+  radius: number;
+  speed: number;
+  tilt: Vec3;
+  phase: number;
+  size: number;
+  colorIndex: number;
+  withRing?: boolean;
+};
+
+const PLANETS: PlanetConfig[] = [
+  {
+    id: "ingest",
+    radius: 2.15,
+    speed: 0.17,
+    tilt: [0.58, 0.2, 0.08],
+    phase: 0,
+    size: 0.1,
+    colorIndex: 4,
+    withRing: true,
+  },
+  {
+    id: "process",
+    radius: 2.55,
+    speed: -0.14,
+    tilt: [1.08, -0.32, 0.18],
+    phase: 1.25,
+    size: 0.11,
+    colorIndex: 1,
+  },
+  {
+    id: "deploy",
+    radius: 2.95,
+    speed: 0.11,
+    tilt: [0.35, 0.48, -0.12],
+    phase: 2.6,
+    size: 0.095,
+    colorIndex: 3,
+  },
+  {
+    id: "monitor",
+    radius: 3.35,
+    speed: -0.09,
+    tilt: [0.82, -0.15, 0.42],
+    phase: 4.1,
+    size: 0.085,
+    colorIndex: 2,
+  },
+  {
+    id: "relay",
+    radius: 3.75,
+    speed: 0.08,
+    tilt: [1.35, 0.28, -0.22],
+    phase: 5.4,
+    size: 0.08,
+    colorIndex: 5,
+  },
 ];
 
 const EDGES: [string, string][] = [
@@ -44,16 +93,30 @@ const EDGES: [string, string][] = [
   ["relay", "process"],
 ];
 
-const ORBITS = [
-  { radius: 3.2, speed: 0.2, tilt: [0.55, 0.15, 0.08] as Vec3, phase: 0, colorIndex: 2 },
-  { radius: 4.0, speed: -0.12, tilt: [1.1, -0.3, 0.2] as Vec3, phase: 1.8, colorIndex: 0 },
-  { radius: 4.8, speed: 0.08, tilt: [0.3, 0.5, -0.15] as Vec3, phase: 3.2, colorIndex: 3 },
-];
+type PositionsMap = Record<string, THREE.Vector3>;
 
-function nodeById(id: string) {
-  const node = NODES.find((n) => n.id === id);
-  if (!node) throw new Error(`Unknown node: ${id}`);
-  return node;
+function createPositionsMap(): PositionsMap {
+  const ids = ["hub", ...PLANETS.map((p) => p.id)];
+  const map: PositionsMap = {};
+  ids.forEach((id) => {
+    map[id] = new THREE.Vector3();
+  });
+  return map;
+}
+
+const PositionsContext = createContext<React.MutableRefObject<PositionsMap> | null>(
+  null,
+);
+
+function usePositions() {
+  const ctx = useContext(PositionsContext);
+  if (!ctx) throw new Error("usePositions outside SolarNetwork");
+  return ctx;
+}
+
+function orbitRadius(base: number) {
+  const p = heroScrollRef.current;
+  return base * (1 + p * 0.35);
 }
 
 function ScrollCamera() {
@@ -120,29 +183,30 @@ function StarField() {
 function OrbitRing({
   radius,
   rotation,
-  opacity = 0.1,
+  opacity = 0.11,
 }: {
   radius: number;
   rotation: Vec3;
   opacity?: number;
 }) {
-  const ref = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
-    if (!ref.current) return;
-    const p = heroScrollRef.current;
-    ref.current.scale.setScalar(1 + p * 0.35);
+    if (!ringRef.current) return;
+    ringRef.current.scale.setScalar(orbitRadius(1));
   });
 
   return (
-    <mesh ref={ref} rotation={rotation}>
-      <torusGeometry args={[radius, 0.005, 6, 120]} />
-      <meshBasicMaterial color={ACCENT} transparent opacity={opacity} />
-    </mesh>
+    <group rotation={rotation}>
+      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[radius, 0.005, 6, 120]} />
+        <meshBasicMaterial color={ACCENT} transparent opacity={opacity} />
+      </mesh>
+    </group>
   );
 }
 
-function Planet({
+function PlanetMesh({
   size,
   colorIndex,
   withRing = false,
@@ -151,16 +215,15 @@ function Planet({
   colorIndex: number;
   withRing?: boolean;
 }) {
-  const groupRef = useRef<THREE.Group>(null);
+  const spinRef = useRef<THREE.Group>(null);
   const color = PLANET_COLORS[colorIndex % PLANET_COLORS.length];
 
   useFrame((_, delta) => {
-    if (!groupRef.current) return;
-    groupRef.current.rotation.y += delta * 0.12;
+    if (spinRef.current) spinRef.current.rotation.y += delta * 0.12;
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={spinRef}>
       <mesh>
         <sphereGeometry args={[size, 20, 20]} />
         <meshBasicMaterial color={color} />
@@ -173,7 +236,7 @@ function Planet({
         <group rotation={[1.12, 0.4, 0.25]}>
           <mesh>
             <torusGeometry args={[size * 1.65, size * 0.075, 8, 56]} />
-            <meshBasicMaterial color="#4ec4b0" transparent opacity={0.7} />
+            <meshBasicMaterial color={SECONDARY} transparent opacity={0.75} />
           </mesh>
           <mesh scale={[1.06, 1.06, 1]}>
             <torusGeometry args={[size * 1.65, size * 0.028, 6, 56]} />
@@ -185,44 +248,37 @@ function Planet({
   );
 }
 
-function OrbitingSatellite({
-  radius,
-  speed,
-  tilt,
-  phase,
-  colorIndex,
-}: {
-  radius: number;
-  speed: number;
-  tilt: Vec3;
-  phase: number;
-  colorIndex: number;
-}) {
-  const ref = useRef<THREE.Group>(null);
-  const angle = useRef(phase);
-  const tiltMatrix = useMemo(() => {
-    const m = new THREE.Matrix4();
-    m.makeRotationFromEuler(new THREE.Euler(tilt[0], tilt[1], tilt[2]));
-    return m;
-  }, [tilt]);
+function OrbitingPlanet({ config }: { config: PlanetConfig }) {
+  const pivotRef = useRef<THREE.Group>(null);
+  const positionsRef = usePositions();
+  const angle = useRef(config.phase);
+  const tiltEuler = useMemo(
+    () => new THREE.Euler(config.tilt[0], config.tilt[1], config.tilt[2]),
+    [config.tilt],
+  );
 
   useFrame((_, delta) => {
-    if (!ref.current) return;
-    const p = heroScrollRef.current;
-    const r = radius * (1 + p * 0.35);
-    angle.current += delta * speed;
-    const local = new THREE.Vector3(
-      Math.cos(angle.current) * r,
-      0,
-      Math.sin(angle.current) * r,
-    );
-    local.applyMatrix4(tiltMatrix);
-    ref.current.position.copy(local);
+    if (!pivotRef.current) return;
+    const r = orbitRadius(config.radius);
+    angle.current += delta * config.speed;
+    const x = Math.cos(angle.current) * r;
+    const z = Math.sin(angle.current) * r;
+    pivotRef.current.position.set(x, 0, z);
+
+    const local = positionsRef.current[config.id];
+    local.set(x, 0, z);
+    local.applyEuler(tiltEuler);
   });
 
   return (
-    <group ref={ref}>
-      <Planet size={0.05} colorIndex={colorIndex} />
+    <group rotation={config.tilt}>
+      <group ref={pivotRef}>
+        <PlanetMesh
+          size={config.size}
+          colorIndex={config.colorIndex}
+          withRing={config.withRing}
+        />
+      </group>
     </group>
   );
 }
@@ -231,11 +287,14 @@ function DysonHub() {
   const shellRef = useRef<THREE.Group>(null);
   const coreRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
+  const positionsRef = usePositions();
 
   useFrame((state) => {
     const p = heroScrollRef.current;
     const t = state.clock.elapsedTime;
     const pulse = 1 + Math.sin(t * (1.6 + p * 2)) * 0.05;
+
+    positionsRef.current.hub.set(0, 0, 0);
 
     if (coreRef.current) coreRef.current.scale.setScalar(pulse * (1 + p * 0.15));
     if (glowRef.current) {
@@ -257,7 +316,6 @@ function DysonHub() {
         <sphereGeometry args={[0.32, 20, 20]} />
         <meshBasicMaterial color={ACCENT} transparent opacity={0.06} />
       </mesh>
-
       <mesh ref={coreRef}>
         <sphereGeometry args={[0.14, 24, 24]} />
         <meshBasicMaterial color="#fff4e8" />
@@ -266,16 +324,10 @@ function DysonHub() {
         <sphereGeometry args={[0.14, 16, 16]} />
         <meshBasicMaterial color={ACCENT} />
       </mesh>
-
       <group ref={shellRef}>
         <mesh>
           <icosahedronGeometry args={[0.27, 2]} />
-          <meshBasicMaterial
-            color={ACCENT}
-            wireframe
-            transparent
-            opacity={0.38}
-          />
+          <meshBasicMaterial color={ACCENT} wireframe transparent opacity={0.38} />
         </mesh>
         <mesh rotation={[0.45, 0.8, 0.15]}>
           <icosahedronGeometry args={[0.3, 1]} />
@@ -295,15 +347,10 @@ function DysonHub() {
             opacity={0.2}
           />
         </mesh>
-
         {[0, 1, 2].map((i) => (
           <mesh
             key={i}
-            rotation={[
-              Math.PI / 2 + i * 0.35,
-              i * 1.1,
-              i * 0.25,
-            ]}
+            rotation={[Math.PI / 2 + i * 0.35, i * 1.1, i * 0.25]}
           >
             <torusGeometry args={[0.28 + i * 0.02, 0.004, 4, 64]} />
             <meshBasicMaterial
@@ -318,52 +365,63 @@ function DysonHub() {
   );
 }
 
-function NetworkNode({
-  position,
-  size,
-  colorIndex,
-  isHub = false,
-}: {
-  position: Vec3;
-  size: number;
-  colorIndex: number;
-  isHub?: boolean;
-}) {
-  if (isHub) return <DysonHub />;
+function DynamicPipeline({ fromId, toId }: { fromId: string; toId: string }) {
+  const positionsRef = usePositions();
+  const lineObj = useMemo(() => {
+    const positions = new Float32Array(6);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    const material = new THREE.LineBasicMaterial({
+      color: ACCENT,
+      transparent: true,
+      opacity: 0.045,
+    });
+    return new THREE.Line(geometry, material);
+  }, []);
 
-  return (
-    <group position={position}>
-      <Planet
-        size={size}
-        colorIndex={colorIndex}
-        withRing={colorIndex === 4}
-      />
-    </group>
-  );
+  useFrame(() => {
+    const from = positionsRef.current[fromId];
+    const to = positionsRef.current[toId];
+    const attr = lineObj.geometry.getAttribute("position") as THREE.BufferAttribute;
+    const arr = attr.array as Float32Array;
+    arr[0] = from.x;
+    arr[1] = from.y;
+    arr[2] = from.z;
+    arr[3] = to.x;
+    arr[4] = to.y;
+    arr[5] = to.z;
+    attr.needsUpdate = true;
+  });
+
+  return <primitive object={lineObj} />;
 }
 
 function LogisticsShip({
-  from,
-  to,
+  fromId,
+  toId,
   speed,
   offset,
 }: {
-  from: Vec3;
-  to: Vec3;
+  fromId: string;
+  toId: string;
   speed: number;
   offset: number;
 }) {
   const groupRef = useRef<THREE.Group>(null);
-  const fromVec = useMemo(() => new THREE.Vector3(...from), [from]);
-  const toVec = useMemo(() => new THREE.Vector3(...to), [to]);
+  const positionsRef = usePositions();
   const progress = useRef(offset % 2);
   const pos = useMemo(() => new THREE.Vector3(), []);
   const posAhead = useMemo(() => new THREE.Vector3(), []);
   const direction = useMemo(() => new THREE.Vector3(), []);
   const forward = useMemo(() => new THREE.Vector3(0, 0, 1), []);
+  const from = useMemo(() => new THREE.Vector3(), []);
+  const to = useMemo(() => new THREE.Vector3(), []);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
+
+    from.copy(positionsRef.current[fromId]);
+    to.copy(positionsRef.current[toId]);
 
     progress.current = (progress.current + delta * speed) % 2;
     const linearT =
@@ -375,8 +433,8 @@ function LogisticsShip({
         : Math.max(linearT - 0.03, 0);
     const easedAhead = travelEase(linearAhead);
 
-    pos.lerpVectors(fromVec, toVec, eased);
-    posAhead.lerpVectors(fromVec, toVec, easedAhead);
+    pos.lerpVectors(from, to, eased);
+    posAhead.lerpVectors(from, to, easedAhead);
     groupRef.current.position.copy(pos);
 
     direction.subVectors(posAhead, pos);
@@ -390,7 +448,7 @@ function LogisticsShip({
     <group ref={groupRef}>
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.018]}>
         <coneGeometry args={[0.014, 0.05, 4]} />
-        <meshBasicMaterial color="#5a9aaa" />
+        <meshBasicMaterial color="#5a7594" />
       </mesh>
       <mesh position={[0, 0, -0.012]}>
         <boxGeometry args={[0.034, 0.01, 0.022]} />
@@ -398,31 +456,15 @@ function LogisticsShip({
       </mesh>
       <mesh position={[0, 0, -0.024]}>
         <boxGeometry args={[0.01, 0.01, 0.014]} />
-        <meshBasicMaterial color="#3a6888" />
+        <meshBasicMaterial color="#5a7594" />
       </mesh>
     </group>
   );
 }
 
-function Pipeline({ from, to }: { from: Vec3; to: Vec3 }) {
-  const points = useMemo(
-    () => [new THREE.Vector3(...from), new THREE.Vector3(...to)],
-    [from, to],
-  );
-
-  return (
-    <Line
-      points={points}
-      color={ACCENT}
-      transparent
-      opacity={0.18}
-      lineWidth={1}
-    />
-  );
-}
-
-function AutomationNetwork() {
+function SolarNetwork() {
   const groupRef = useRef<THREE.Group>(null);
+  const positionsRef = useRef(createPositionsMap());
 
   useFrame(() => {
     if (!groupRef.current) return;
@@ -432,64 +474,37 @@ function AutomationNetwork() {
   });
 
   return (
-    <group ref={groupRef}>
-      {EDGES.map(([a, b]) => {
-        const from = nodeById(a).pos;
-        const to = nodeById(b).pos;
-        return <Pipeline key={`${a}-${b}`} from={from} to={to} />;
-      })}
+    <PositionsContext.Provider value={positionsRef}>
+      <group ref={groupRef}>
+        {PLANETS.map((planet) => (
+          <OrbitRing
+            key={`ring-${planet.id}`}
+            radius={planet.radius}
+            rotation={planet.tilt}
+          />
+        ))}
 
-      {EDGES.map(([a, b], i) => {
-        const from = nodeById(a).pos;
-        const to = nodeById(b).pos;
-        return (
+        <DysonHub />
+
+        {PLANETS.map((planet) => (
+          <OrbitingPlanet key={planet.id} config={planet} />
+        ))}
+
+        {EDGES.map(([a, b]) => (
+          <DynamicPipeline key={`${a}-${b}`} fromId={a} toId={b} />
+        ))}
+
+        {EDGES.map(([a, b], i) => (
           <LogisticsShip
-            key={`flow-${a}-${b}`}
-            from={from}
-            to={to}
+            key={`ship-${a}-${b}`}
+            fromId={a}
+            toId={b}
             speed={0.32 + (i % 3) * 0.07}
             offset={i * 0.37}
           />
-        );
-      })}
-
-      {NODES.map((node) => (
-        <NetworkNode
-          key={node.id}
-          position={node.pos}
-          size={node.size}
-          colorIndex={node.colorIndex}
-          isHub={node.id === "hub"}
-        />
-      ))}
-    </group>
-  );
-}
-
-function OrbitalSystem() {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame(() => {
-    if (!groupRef.current) return;
-    const p = heroScrollRef.current;
-    groupRef.current.rotation.z = p * 0.4;
-  });
-
-  return (
-    <group ref={groupRef}>
-      {ORBITS.map((orbit) => (
-        <group key={orbit.radius}>
-          <OrbitRing radius={orbit.radius} rotation={orbit.tilt} />
-          <OrbitingSatellite
-            radius={orbit.radius}
-            speed={orbit.speed}
-            tilt={orbit.tilt}
-            phase={orbit.phase}
-            colorIndex={orbit.colorIndex}
-          />
-        </group>
-      ))}
-    </group>
+        ))}
+      </group>
+    </PositionsContext.Provider>
   );
 }
 
@@ -536,8 +551,7 @@ function SceneRoot() {
       }}
     >
       <StarField />
-      <OrbitalSystem />
-      <AutomationNetwork />
+      <SolarNetwork />
     </group>
   );
 }
