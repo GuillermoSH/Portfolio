@@ -8,7 +8,7 @@ import {
 import { RevealSection } from "../components/RevealSection";
 import { Tag } from "../components/Tag";
 import type { Locale } from "../lib/i18n";
-import { viewProject } from "../lib/present";
+import { projectLinkLabel } from "../lib/present";
 
 type WorkSectionProps = {
   locale: Locale;
@@ -37,6 +37,8 @@ export function WorkSection({ locale }: WorkSectionProps) {
       <ul className="divide-y divide-border">
         {FEATURED_PROJECTS.map((project) => {
           const featured = project.id === FEATURED_PROJECT_ID;
+          const linkType = project.linkType ?? (project.href ? "repo" : "none");
+          const linkLabel = projectLinkLabel(locale, linkType);
           return (
             <motion.li
               key={project.id}
@@ -50,15 +52,35 @@ export function WorkSection({ locale }: WorkSectionProps) {
                 <h3 className="text-base font-semibold text-ink">
                   {project.name}
                 </h3>
+                {linkLabel && project.href ? (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-accent hover:text-accent-deep"
+                  >
+                    {linkLabel} →
+                  </a>
+                ) : null}
+              </div>
+              {project.preview ? (
                 <a
                   href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-accent hover:text-accent-deep"
+                  className="mt-3 block max-w-md overflow-hidden rounded-md border border-border transition-colors hover:border-accent/35"
+                  tabIndex={project.href ? undefined : -1}
+                  aria-hidden={!project.href}
                 >
-                  {viewProject(locale)} →
+                  <img
+                    src={project.preview}
+                    alt={project.previewAlt ?? project.name}
+                    className="h-auto w-full"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </a>
-              </div>
+              ) : null}
               <p className="mt-2 max-w-prose text-sm text-muted">
                 {project.description}
               </p>

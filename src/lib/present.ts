@@ -1,10 +1,11 @@
 import type { Locale } from "./i18n";
+import type { ProjectLinkType } from "../data/site";
 import { tr } from "./i18n";
 
 export function condenseBullets(bullets: string[]): string {
   if (bullets.length === 0) return "";
   if (bullets.length === 1) return bullets[0];
-  return bullets.slice(0, 2).join(" · ");
+  return bullets.slice(0, 3).join(" · ");
 }
 
 export function parseStackNote(note?: string): string[] {
@@ -44,7 +45,9 @@ export function awsSummary(locale: Locale, count: number) {
   );
 }
 
-export function viewProject(locale: Locale) {
+export function projectLinkLabel(locale: Locale, linkType: ProjectLinkType = "repo") {
+  if (linkType === "site") return tr(locale, "Ver web", "View site");
+  if (linkType === "none") return null;
   return tr(locale, "Ver repo", "View repo");
 }
 

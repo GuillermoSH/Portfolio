@@ -82,15 +82,13 @@ const PLANETS: PlanetConfig[] = [
   },
 ];
 
-const EDGES: [string, string][] = [
+const SHIP_ROUTES: [string, string][] = [
   ["hub", "ingest"],
   ["hub", "process"],
   ["hub", "deploy"],
   ["hub", "relay"],
   ["ingest", "deploy"],
   ["process", "monitor"],
-  ["deploy", "monitor"],
-  ["relay", "process"],
 ];
 
 type PositionsMap = Record<string, THREE.Vector3>;
@@ -180,7 +178,7 @@ function StarField() {
   );
 }
 
-function OrbitRing({
+function DashedOrbitRing({
   radius,
   rotation,
   opacity = 0.11,
@@ -189,19 +187,37 @@ function OrbitRing({
   rotation: Vec3;
   opacity?: number;
 }) {
-  const ringRef = useRef<THREE.Mesh>(null);
+  const scaleRef = useRef<THREE.Group>(null);
+  const lineObj = useMemo(() => {
+    const segments = 128;
+    const points: THREE.Vector3[] = [];
+    for (let i = 0; i <= segments; i++) {
+      const angle = (i / segments) * Math.PI * 2;
+      points.push(
+        new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius),
+      );
+    }
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const material = new THREE.LineDashedMaterial({
+      color: ACCENT,
+      transparent: true,
+      opacity,
+      dashSize: 0.14,
+      gapSize: 0.14,
+    });
+    const loop = new THREE.LineLoop(geometry, material);
+    loop.computeLineDistances();
+    return loop;
+  }, [radius, opacity]);
 
   useFrame(() => {
-    if (!ringRef.current) return;
-    ringRef.current.scale.setScalar(orbitRadius(1));
+    if (!scaleRef.current) return;
+    scaleRef.current.scale.setScalar(orbitRadius(1));
   });
 
   return (
-    <group rotation={rotation}>
-      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[radius, 0.005, 6, 120]} />
-        <meshBasicMaterial color={ACCENT} transparent opacity={opacity} />
-      </mesh>
+    <group ref={scaleRef} rotation={rotation}>
+      <primitive object={lineObj} />
     </group>
   );
 }
@@ -299,7 +315,7 @@ function DysonHub() {
     if (coreRef.current) coreRef.current.scale.setScalar(pulse * (1 + p * 0.15));
     if (glowRef.current) {
       glowRef.current.scale.setScalar(
-        (2.2 + Math.sin(t * 1.2) * 0.12) * (1 + p * 0.45),
+        (3.1 + Math.sin(t * 1.2) * 0.14) * (1 + p * 0.45),
       );
       (glowRef.current.material as THREE.MeshBasicMaterial).opacity =
         0.06 + p * 0.1;
@@ -313,24 +329,24 @@ function DysonHub() {
   return (
     <group>
       <mesh ref={glowRef}>
-        <sphereGeometry args={[0.32, 20, 20]} />
+        <sphereGeometry args={[0.48, 20, 20]} />
         <meshBasicMaterial color={ACCENT} transparent opacity={0.06} />
       </mesh>
       <mesh ref={coreRef}>
-        <sphereGeometry args={[0.14, 24, 24]} />
+        <sphereGeometry args={[0.22, 24, 24]} />
         <meshBasicMaterial color="#fff4e8" />
       </mesh>
       <mesh scale={0.92}>
-        <sphereGeometry args={[0.14, 16, 16]} />
+        <sphereGeometry args={[0.22, 16, 16]} />
         <meshBasicMaterial color={ACCENT} />
       </mesh>
       <group ref={shellRef}>
         <mesh>
-          <icosahedronGeometry args={[0.27, 2]} />
+          <icosahedronGeometry args={[0.38, 2]} />
           <meshBasicMaterial color={ACCENT} wireframe transparent opacity={0.38} />
         </mesh>
         <mesh rotation={[0.45, 0.8, 0.15]}>
-          <icosahedronGeometry args={[0.3, 1]} />
+          <icosahedronGeometry args={[0.42, 1]} />
           <meshBasicMaterial
             color="#c5ccd8"
             wireframe
@@ -339,7 +355,7 @@ function DysonHub() {
           />
         </mesh>
         <mesh rotation={[1.05, 0.2, 0.5]}>
-          <icosahedronGeometry args={[0.33, 1]} />
+          <icosahedronGeometry args={[0.46, 1]} />
           <meshBasicMaterial
             color="#3a8090"
             wireframe
@@ -352,7 +368,7 @@ function DysonHub() {
             key={i}
             rotation={[Math.PI / 2 + i * 0.35, i * 1.1, i * 0.25]}
           >
-            <torusGeometry args={[0.28 + i * 0.02, 0.004, 4, 64]} />
+            <torusGeometry args={[0.38 + i * 0.03, 0.004, 4, 64]} />
             <meshBasicMaterial
               color={i === 0 ? ACCENT : "#b8c0cc"}
               transparent
@@ -363,37 +379,6 @@ function DysonHub() {
       </group>
     </group>
   );
-}
-
-function DynamicPipeline({ fromId, toId }: { fromId: string; toId: string }) {
-  const positionsRef = usePositions();
-  const lineObj = useMemo(() => {
-    const positions = new Float32Array(6);
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const material = new THREE.LineBasicMaterial({
-      color: ACCENT,
-      transparent: true,
-      opacity: 0.045,
-    });
-    return new THREE.Line(geometry, material);
-  }, []);
-
-  useFrame(() => {
-    const from = positionsRef.current[fromId];
-    const to = positionsRef.current[toId];
-    const attr = lineObj.geometry.getAttribute("position") as THREE.BufferAttribute;
-    const arr = attr.array as Float32Array;
-    arr[0] = from.x;
-    arr[1] = from.y;
-    arr[2] = from.z;
-    arr[3] = to.x;
-    arr[4] = to.y;
-    arr[5] = to.z;
-    attr.needsUpdate = true;
-  });
-
-  return <primitive object={lineObj} />;
 }
 
 function LogisticsShip({
@@ -477,7 +462,7 @@ function SolarNetwork() {
     <PositionsContext.Provider value={positionsRef}>
       <group ref={groupRef}>
         {PLANETS.map((planet) => (
-          <OrbitRing
+          <DashedOrbitRing
             key={`ring-${planet.id}`}
             radius={planet.radius}
             rotation={planet.tilt}
@@ -490,11 +475,7 @@ function SolarNetwork() {
           <OrbitingPlanet key={planet.id} config={planet} />
         ))}
 
-        {EDGES.map(([a, b]) => (
-          <DynamicPipeline key={`${a}-${b}`} fromId={a} toId={b} />
-        ))}
-
-        {EDGES.map(([a, b], i) => (
+        {SHIP_ROUTES.map(([a, b], i) => (
           <LogisticsShip
             key={`ship-${a}-${b}`}
             fromId={a}

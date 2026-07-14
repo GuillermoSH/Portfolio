@@ -237,6 +237,10 @@
   }
 }
 
+#main {
+  position: relative;
+}
+
 body::-webkit-scrollbar {
   width: 6px;
 }

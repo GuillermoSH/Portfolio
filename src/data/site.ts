@@ -34,7 +34,7 @@ export const HERO_CHIPS = [
   "TypeScript",
 ] as const;
 
-export const FEATURED_PROJECT_ID = "cvorotava-team-manager" as const;
+export const FEATURED_PROJECT_ID = "tenaasesores" as const;
 
 export type ExperienceItem = {
   id: string;
@@ -47,6 +47,32 @@ export type ExperienceItem = {
 };
 
 export const EXPERIENCE: ExperienceItem[] = [
+  {
+    id: "tena",
+    title: "Desarrollador de software — Tena Asesores y Abogados S.L.",
+    period: "May 2026 — actualidad",
+    datetime: "2026-05",
+    location: "Asesoría fiscal y jurídica",
+    bullets: [
+      "Automatización con n8n sobre Odoo: flujos que conectan el ERP con tareas fuera del sistema.",
+      "tenaasesores.es en Next.js con API directa a Odoo, desplegada en Vercel.",
+      "Syntia, portal de cliente en Next.js: datos de Odoo y parte en Supabase. Todavía sin publicar.",
+    ],
+    stackNote: "Next.js · Odoo · n8n · Supabase · Vercel",
+  },
+  {
+    id: "tena-fct",
+    title: "Desarrollador de software — Tena Asesores y Abogados S.L. (FCT)",
+    period: "Feb 2026 — May 2026",
+    datetime: "2026-02",
+    location: "Asesoría fiscal y jurídica",
+    bullets: [
+      "Modelos y vistas en Odoo para gestiones internas que el estándar no cubría.",
+      "Automatizaciones con reglas de Odoo, crons en Python y flujos en n8n.",
+      "Web corporativa en Odoo Website: estructura, contenido y mantenimiento.",
+    ],
+    stackNote: "Odoo · Python · n8n",
+  },
   {
     id: "eviden",
     title: "Software Developer — Eviden",
@@ -108,15 +134,39 @@ export const AWS_COURSES = [
   "Getting Started with Cloud Acquisition",
 ] as const;
 
+export type ProjectLinkType = "repo" | "site" | "none";
+
 export type ProjectItem = {
   id: string;
   name: string;
   description: string;
   tech: string[];
-  href: string;
+  href?: string;
+  linkType?: ProjectLinkType;
+  preview?: string;
+  previewAlt?: string;
 };
 
 export const FEATURED_PROJECTS: ProjectItem[] = [
+  {
+    id: "tenaasesores",
+    name: "tenaasesores.es",
+    description:
+      "Web de la asesoría en Next.js, con datos en vivo desde Odoo. En producción en Vercel.",
+    tech: ["Next.js", "Odoo", "Vercel"],
+    href: "https://www.tenaasesores.es/",
+    linkType: "site",
+    preview: "/img/tenaasesores.png",
+    previewAlt: "Captura de la web tenaasesores.es",
+  },
+  {
+    id: "syntia",
+    name: "Syntia",
+    description:
+      "Portal de cliente para la asesoría: información desde Odoo y parte de la base en Supabase. En desarrollo, sin lanzar aún.",
+    tech: ["Next.js", "Odoo", "Supabase", "Vercel"],
+    linkType: "none",
+  },
   {
     id: "cvorotava-team-manager",
     name: "CVOrotava-Team-Manager",
