@@ -39,7 +39,7 @@ export function awsSummary(locale: Locale, count: number) {
   );
 }
 
-export function profileLead(locale: Locale) {
+export function stackLead(locale: Locale) {
   return tr(
     locale,
     "Lo que más uso para llevar productos a producción: integración, backend, frontend y automatización.",
@@ -47,8 +47,8 @@ export function profileLead(locale: Locale) {
   );
 }
 
-export function profileAlsoLabel(locale: Locale) {
-  return tr(locale, "También en el stack", "Also in the stack");
+export function stackExploreLabel(locale: Locale) {
+  return tr(locale, "Explorar por área", "Browse by area");
 }
 
 export function projectLinkLabel(locale: Locale, linkType: ProjectLinkType = "repo") {

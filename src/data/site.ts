@@ -11,7 +11,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: "#inicio", label: "Inicio" },
-  { href: "#perfil", label: "Perfil" },
+  { href: "#stack", label: "Stack" },
   { href: "#trayectoria", label: "Trayectoria" },
   { href: "#proyectos", label: "Proyectos" },
   { href: "#mas", label: "Más" },
@@ -19,7 +19,7 @@ export const NAV_LINKS = [
 
 export const NAV_LINKS_EN = [
   { href: "#inicio", label: "Home" },
-  { href: "#perfil", label: "Profile" },
+  { href: "#stack", label: "Stack" },
   { href: "#trayectoria", label: "Experience" },
   { href: "#proyectos", label: "Projects" },
   { href: "#mas", label: "More" },

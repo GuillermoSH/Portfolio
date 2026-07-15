@@ -14,6 +14,7 @@ type PortfolioPageProps = {
   onLocaleChange: (locale: Locale) => void;
   theme: Theme;
   onThemeToggle: () => void;
+  stackLabHref: string;
 };
 
 export function PortfolioPage({
@@ -21,6 +22,7 @@ export function PortfolioPage({
   onLocaleChange,
   theme,
   onThemeToggle,
+  stackLabHref,
 }: PortfolioPageProps) {
   const year = new Date().getFullYear();
 
@@ -42,6 +44,15 @@ export function PortfolioPage({
       </main>
       <footer className="border-t border-border py-8 text-center text-xs text-muted">
         {footerCopy(locale, year)}
+        <span className="mx-2" aria-hidden="true">
+          ·
+        </span>
+        <a
+          href={stackLabHref}
+          className="underline-offset-2 hover:text-ink hover:underline"
+        >
+          Stack lab
+        </a>
       </footer>
     </>
   );
