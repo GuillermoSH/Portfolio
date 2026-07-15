@@ -11,17 +11,17 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: "#inicio", label: "Inicio" },
+  { href: "#perfil", label: "Perfil" },
   { href: "#trayectoria", label: "Trayectoria" },
   { href: "#proyectos", label: "Proyectos" },
-  { href: "#perfil", label: "Perfil" },
   { href: "#mas", label: "Más" },
 ] as const;
 
 export const NAV_LINKS_EN = [
   { href: "#inicio", label: "Home" },
+  { href: "#perfil", label: "Profile" },
   { href: "#trayectoria", label: "Experience" },
   { href: "#proyectos", label: "Projects" },
-  { href: "#perfil", label: "Profile" },
   { href: "#mas", label: "More" },
 ] as const;
 
@@ -42,7 +42,7 @@ export type ExperienceItem = {
   period: string;
   datetime: string;
   location: string;
-  bullets: string[];
+  paragraphs: string[];
   stackNote?: string;
 };
 
@@ -53,11 +53,9 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "May 2026 — actualidad",
     datetime: "2026-05",
     location: "Asesoría fiscal y jurídica",
-    bullets: [
-      "Diseño y administración de una infraestructura de n8n autohospedado con Workers y colas de Redis, procesando picos de +1000 ejecuciones semanales en paralelo.",
-      "Automatización de flujos críticos de negocio como onboarding de clientes, cálculo de Impuestos de Sociedades (RIC, deducciones y BIN) y asignación automática de tareas fiscales.",
-      "Implementación de un sistema de backup y sincronización en tiempo real entre Odoo y Google Drive para garantizar la continuidad del negocio ante caídas del servicio.",
-      "Desarrollo como único responsable de la web corporativa y del portal de cliente 'Syntia' en Next.js y Supabase, preparándolo para la futura integración de una IA local (DGX Spark).",
+    paragraphs: [
+      "Diseño y administración de una infraestructura de n8n autohospedado con Workers y colas de Redis, procesando picos de +1000 ejecuciones semanales en paralelo. Automatización de flujos críticos de negocio: onboarding de clientes, cálculo de Impuestos de Sociedades (RIC, deducciones y BIN) y asignación automática de tareas fiscales.",
+      "Implementación de un sistema de backup y sincronización en tiempo real entre Odoo y Google Drive para garantizar la continuidad del negocio ante caídas del servicio. Desarrollo como único responsable de la web corporativa y del portal de cliente Syntia en Next.js y Supabase, preparándolo para la futura integración de una IA local (DGX Spark).",
     ],
     stackNote: "Next.js · Odoo · n8n · Supabase · Redis · Vercel · Docker",
   },
@@ -67,11 +65,9 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Feb 2026 — May 2026",
     datetime: "2026-02",
     location: "Asesoría fiscal y jurídica",
-    bullets: [
-      "Optimización de tiempos mediante automatizaciones con n8n que lograron un ahorro pico de más de 26 horas de tareas manuales a la semana.",
-      "Desarrollo de modelos, vistas y lógica interna a medida en Python para el ERP Odoo, cubriendo procesos específicos que el estándar no soportaba.",
-      "Integración de flujos internos conectando crons nativos de Odoo con escenarios y llamadas externas en n8n.",
-      "Diseño, maquetación y mantenimiento de la web corporativa utilizando Odoo Website.",
+    paragraphs: [
+      "Optimización de tiempos mediante automatizaciones con n8n que lograron un ahorro pico de más de 26 horas de tareas manuales a la semana. Desarrollo de modelos, vistas y lógica interna a medida en Python para el ERP Odoo, cubriendo procesos específicos que el estándar no soportaba.",
+      "Integración de flujos internos conectando crons nativos de Odoo con escenarios y llamadas externas en n8n. Diseño, maquetación y mantenimiento de la web corporativa utilizando Odoo Website.",
     ],
     stackNote: "Odoo · Python · n8n · Google Drive",
   },
@@ -81,11 +77,9 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Jul 2023 — Dic 2024",
     datetime: "2023-07",
     location: "Santa Cruz de Tenerife · Sistema de gestión para Orange",
-    bullets: [
-      "Desarrollo e integración de nuevas funcionalidades en la plataforma de gestión de Orange, priorizando la estabilidad del sistema y el rendimiento.",
-      "Creación de scripts en Oracle SQL para la carga de nuevos productos e integración de datos en entornos preproductivos y de pruebas.",
-      "Despliegue remoto de código y parches de incidencias en entornos preproductivos a través de SSH y Tibco Administrator.",
-      "Análisis, depuración y resolución de incidencias en producción para asegurar la continuidad del servicio dentro del ecosistema Tibco.",
+    paragraphs: [
+      "Desarrollo e integración de nuevas funcionalidades en la plataforma de gestión de Orange, priorizando la estabilidad del sistema y el rendimiento. Creación de scripts en Oracle SQL para la carga de nuevos productos e integración de datos en entornos preproductivos y de pruebas.",
+      "Despliegue remoto de código y parches de incidencias en entornos preproductivos a través de SSH y Tibco Administrator. Análisis, depuración y resolución de incidencias en producción para asegurar la continuidad del servicio dentro del ecosistema Tibco.",
     ],
     stackNote: "Oracle SQL · Ecosistema TIBCO · Tibco Administrator · SSH · Jira",
   },
@@ -95,11 +89,60 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Mar 2023 — May 2023",
     datetime: "2023-03",
     location: "Santa Cruz de Tenerife",
-    bullets: [
+    paragraphs: [
       "Desarrollo Full-stack modular utilizando Spring Boot para la arquitectura del backend y Angular para la interfaz de usuario.",
       "Colaboración activa en células de desarrollo bajo marco de trabajo ágil (Scrum) y gestión de control de versiones con Git.",
     ],
     stackNote: "Spring Boot · Angular · Git · Scrum",
+  },
+];
+
+export type PrimarySkill = {
+  id: string;
+  name: string;
+  noteEs: string;
+  noteEn: string;
+  featured?: boolean;
+};
+
+export const PRIMARY_SKILLS: PrimarySkill[] = [
+  {
+    id: "next",
+    name: "Next.js",
+    noteEs: "Webs, portales y SSR en producción",
+    noteEn: "Sites, portals and SSR in production",
+    featured: true,
+  },
+  {
+    id: "n8n",
+    name: "n8n",
+    noteEs: "Automatización e integraciones",
+    noteEn: "Automation and integrations",
+    featured: true,
+  },
+  {
+    id: "typescript",
+    name: "TypeScript",
+    noteEs: "Frontend, scripts y tooling",
+    noteEn: "Frontend, scripts and tooling",
+  },
+  {
+    id: "spring",
+    name: "Spring Boot",
+    noteEs: "APIs y lógica de negocio",
+    noteEn: "APIs and business logic",
+  },
+  {
+    id: "react",
+    name: "React",
+    noteEs: "Interfaces y producto web",
+    noteEn: "UI and web product",
+  },
+  {
+    id: "odoo",
+    name: "Odoo",
+    noteEs: "ERP, Python y procesos a medida",
+    noteEn: "ERP, Python and custom workflows",
   },
 ];
 

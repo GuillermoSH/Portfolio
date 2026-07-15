@@ -1,9 +1,11 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { createContext, useContext, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { LOGISTICS_SHIP } from "../lib/logisticsShip";
+import { LogisticsShipModel } from "./LogisticsShipModel";
 import { heroScrollRef } from "../lib/heroScroll";
 
-const ACCENT = "#d45a28";
+const ACCENT = LOGISTICS_SHIP.body;
 const SECONDARY = "#358f84";
 const STAR_COUNT = 200;
 
@@ -431,18 +433,7 @@ function LogisticsShip({
 
   return (
     <group ref={groupRef}>
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.018]}>
-        <coneGeometry args={[0.014, 0.05, 4]} />
-        <meshBasicMaterial color="#5a7594" />
-      </mesh>
-      <mesh position={[0, 0, -0.012]}>
-        <boxGeometry args={[0.034, 0.01, 0.022]} />
-        <meshBasicMaterial color={ACCENT} />
-      </mesh>
-      <mesh position={[0, 0, -0.024]}>
-        <boxGeometry args={[0.01, 0.01, 0.014]} />
-        <meshBasicMaterial color="#5a7594" />
-      </mesh>
+      <LogisticsShipModel />
     </group>
   );
 }

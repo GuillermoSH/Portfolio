@@ -35,9 +35,9 @@ export function PortfolioPage({
       />
       <main id="main" className="pt-14">
         <IntroSection locale={locale} />
+        <StackSection locale={locale} />
         <TrackSection locale={locale} />
         <WorkSection locale={locale} />
-        <StackSection locale={locale} />
         <ExtraSection locale={locale} />
       </main>
       <footer className="border-t border-border py-8 text-center text-xs text-muted">

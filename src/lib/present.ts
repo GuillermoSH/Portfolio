@@ -2,12 +2,6 @@ import type { Locale } from "./i18n";
 import type { ProjectLinkType } from "../data/site";
 import { tr } from "./i18n";
 
-export function condenseBullets(bullets: string[]): string {
-  if (bullets.length === 0) return "";
-  if (bullets.length === 1) return bullets[0];
-  return bullets.slice(0, 3).join(" · ");
-}
-
 export function parseStackNote(note?: string): string[] {
   if (!note) return [];
   return note.split("·").map((s) => s.trim()).filter(Boolean);
@@ -45,10 +39,26 @@ export function awsSummary(locale: Locale, count: number) {
   );
 }
 
+export function profileLead(locale: Locale) {
+  return tr(
+    locale,
+    "Lo que más uso para llevar productos a producción: integración, backend, frontend y automatización.",
+    "What I reach for most to ship production software: integration, backend, frontend and automation.",
+  );
+}
+
+export function profileAlsoLabel(locale: Locale) {
+  return tr(locale, "También en el stack", "Also in the stack");
+}
+
 export function projectLinkLabel(locale: Locale, linkType: ProjectLinkType = "repo") {
   if (linkType === "site") return tr(locale, "Ver web", "View site");
   if (linkType === "none") return null;
   return tr(locale, "Ver repo", "View repo");
+}
+
+export function projectStatusDev(locale: Locale) {
+  return tr(locale, "En desarrollo", "In development");
 }
 
 export function viewCert(locale: Locale) {
