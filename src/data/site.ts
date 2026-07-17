@@ -97,81 +97,69 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
 ];
 
-export type PrimarySkill = {
+export type PipelineStep = {
   id: string;
-  name: string;
-  noteEs: string;
-  noteEn: string;
-  featured?: boolean;
+  labelEs: string;
+  labelEn: string;
+  hintEs: string;
+  hintEn: string;
+  tools: string[];
 };
 
-export const PRIMARY_SKILLS: PrimarySkill[] = [
+export const PIPELINE_STEPS: PipelineStep[] = [
   {
-    id: "next",
-    name: "Next.js",
-    noteEs: "Webs, portales y SSR en producción",
-    noteEn: "Sites, portals and SSR in production",
-    featured: true,
+    id: "source",
+    labelEs: "Source",
+    labelEn: "Source",
+    hintEs: "Control de versiones, entorno y tooling diario",
+    hintEn: "Version control, environment and daily tooling",
+    tools: ["Git", "Cursor", "VSCode", "bash"],
   },
   {
-    id: "n8n",
-    name: "n8n",
-    noteEs: "Automatización e integraciones",
-    noteEn: "Automation and integrations",
-    featured: true,
+    id: "build",
+    labelEs: "Build",
+    labelEn: "Build",
+    hintEs: "Lenguajes, frameworks, UI y datos",
+    hintEn: "Languages, frameworks, UI and data",
+    tools: [
+      "Java",
+      "Spring Boot",
+      "Node.js",
+      "Next.js",
+      "Angular",
+      "React",
+      "React Native",
+      "Expo",
+      "Tailwind",
+      "Oracle SQL",
+      "PostgreSQL",
+      "MySQL",
+    ],
   },
   {
-    id: "typescript",
-    name: "TypeScript",
-    noteEs: "Frontend, scripts y tooling",
-    noteEn: "Frontend, scripts and tooling",
-  },
-  {
-    id: "spring",
-    name: "Spring Boot",
-    noteEs: "APIs y lógica de negocio",
-    noteEn: "APIs and business logic",
-  },
-  {
-    id: "react",
-    name: "React",
-    noteEs: "Interfaces y producto web",
-    noteEn: "UI and web product",
-  },
-  {
-    id: "odoo",
-    name: "Odoo",
-    noteEs: "ERP, Python y procesos a medida",
-    noteEn: "ERP, Python and custom workflows",
-  },
-];
-
-export const STACK_GROUPS = [
-  {
-    id: "backend",
-    labelEs: "Backend",
-    labelEn: "Backend",
-    items: ["Java", "Spring Boot", "TypeScript", "Integración"],
-  },
-  {
-    id: "frontend",
-    labelEs: "Frontend",
-    labelEn: "Frontend",
-    items: ["Angular", "React", "Next.js", "React Native", "Flutter"],
-  },
-  {
-    id: "data",
-    labelEs: "Datos",
-    labelEn: "Data",
-    items: ["SQL / Oracle SQL", "Bases de datos"],
+    id: "deploy",
+    labelEs: "Deploy",
+    labelEn: "Deploy",
+    hintEs: "CI/CD, cloud y servidores Linux",
+    hintEn: "CI/CD, cloud and Linux servers",
+    tools: [
+      "GitHub Actions",
+      "Vercel",
+      "Supabase",
+      "pnpm",
+      "Ubuntu Server",
+      "bash",
+    ],
   },
   {
     id: "ops",
-    labelEs: "Ops y automatización",
-    labelEn: "Ops & automation",
-    items: ["AWS", "Git", "Jira", "UiPath", "n8n", "Odoo"],
+    labelEs: "Ops",
+    labelEn: "Ops",
+    hintEs: "Automatización y forma de trabajar",
+    hintEn: "Automation and ways of working",
+    tools: ["n8n", "Kanban", "Scrum"],
   },
-] as const;
+];
 
 export const AWS_COURSES = [
   "AWS Cloud Practitioner Essentials",

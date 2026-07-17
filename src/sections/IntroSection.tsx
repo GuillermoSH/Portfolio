@@ -117,7 +117,7 @@ export function IntroSection({ locale }: IntroSectionProps) {
     >
       <div
         ref={stickyRef}
-        className="hero-sticky sticky top-14 h-[calc(100dvh-3.5rem)] overflow-hidden"
+        className="hero-sticky sticky top-14 hero-sticky__panel overflow-hidden"
       >
         <HeroScene />
         <div className="hero-vignette pointer-events-none" aria-hidden="true" />
