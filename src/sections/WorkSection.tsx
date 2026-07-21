@@ -35,7 +35,7 @@ export function WorkSection({ locale }: WorkSectionProps) {
 
       <ProjectEntry project={featured} locale={locale} featured />
 
-      <div className="project-grid mt-12 sm:mt-14">
+      <div className="project-grid mt-14 sm:mt-16">
         {others.map((project) => (
           <ProjectEntry key={project.id} project={project} locale={locale} />
         ))}

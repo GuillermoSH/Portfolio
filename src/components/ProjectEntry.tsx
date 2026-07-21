@@ -3,7 +3,12 @@ import type { ProjectItem } from "../data/site";
 import { Tag } from "./Tag";
 import { ProjectThumb } from "./ProjectThumb";
 import type { Locale } from "../lib/i18n";
-import { projectLinkLabel, projectStatusDev } from "../lib/present";
+import {
+  projectHostLabel,
+  projectLinkLabel,
+  projectLiveLabel,
+  projectStatusDev,
+} from "../lib/present";
 
 type ProjectEntryProps = {
   project: ProjectItem;
@@ -20,9 +25,16 @@ export function ProjectEntry({
   const linkType = project.linkType ?? (project.href ? "repo" : "none");
   const linkLabel = projectLinkLabel(locale, linkType);
   const inDevelopment = linkType === "none";
+  const isLiveSite = featured && linkType === "site" && Boolean(project.href);
+  const host = projectHostLabel(project.href);
 
   const visual = (
-    <ProjectThumb project={project} featured={featured} className="w-full" />
+    <ProjectThumb
+      project={project}
+      featured={featured}
+      liveChrome={isLiveSite}
+      className="w-full"
+    />
   );
 
   const visualWrapper =
@@ -31,7 +43,8 @@ export function ProjectEntry({
         href={project.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="project-entry__visual-link"
+        className={`project-entry__visual-link ${isLiveSite ? "project-entry__visual-link--live" : ""}`}
+        aria-label={`${linkLabel}: ${project.name}`}
       >
         {visual}
       </a>
@@ -43,7 +56,7 @@ export function ProjectEntry({
 
   return (
     <motion.article
-      className={`project-entry ${featured ? "project-entry--featured" : ""}`}
+      className={`project-entry ${featured ? "project-entry--featured" : ""} ${isLiveSite ? "project-entry--live" : ""}`}
       initial={reduced ? false : { opacity: 0.65, y: 14 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
@@ -52,33 +65,63 @@ export function ProjectEntry({
       {visualWrapper}
 
       <div className="project-entry__body">
+        {isLiveSite ? (
+          <p className="project-entry__live">
+            <span className="project-entry__live-dot" aria-hidden="true" />
+            {projectLiveLabel(locale)}
+            {host ? (
+              <>
+                <span className="project-entry__live-sep" aria-hidden="true">
+                  ·
+                </span>
+                <span className="project-entry__live-host">{host}</span>
+              </>
+            ) : null}
+          </p>
+        ) : null}
+
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h3 className="text-base font-semibold text-ink">{project.name}</h3>
+          <h3
+            className={
+              isLiveSite
+                ? "project-entry__title project-entry__title--live"
+                : "project-entry__title"
+            }
+          >
+            {project.name}
+          </h3>
           {inDevelopment ? (
             <span className="text-xs font-medium text-secondary">
               {projectStatusDev(locale)}
             </span>
-          ) : linkLabel && project.href ? (
-            <a
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-accent hover:text-accent-deep"
-            >
-              {linkLabel} →
-            </a>
           ) : null}
         </div>
 
-        <p className="mt-2 max-w-prose text-sm text-muted">{project.description}</p>
+        <p className="project-entry__desc">{project.description}</p>
 
-        <ul className="mt-3 flex flex-wrap gap-2">
+        <ul className="project-entry__tech">
           {project.tech.map((tech) => (
             <li key={tech}>
               <Tag>{tech}</Tag>
             </li>
           ))}
         </ul>
+
+        {linkLabel && project.href ? (
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={
+              isLiveSite
+                ? "project-entry__cta project-entry__cta--live"
+                : "project-entry__cta"
+            }
+          >
+            {linkLabel}
+            <span aria-hidden="true">→</span>
+          </a>
+        ) : null}
       </div>
     </motion.article>
   );

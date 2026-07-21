@@ -48,9 +48,22 @@ export function stackLead(locale: Locale) {
 }
 
 export function projectLinkLabel(locale: Locale, linkType: ProjectLinkType = "repo") {
-  if (linkType === "site") return tr(locale, "Ver web", "View site");
+  if (linkType === "site") return tr(locale, "Abrir web", "Open site");
   if (linkType === "none") return null;
   return tr(locale, "Ver repo", "View repo");
+}
+
+export function projectLiveLabel(locale: Locale) {
+  return tr(locale, "En producción", "Live");
+}
+
+export function projectHostLabel(href?: string) {
+  if (!href) return null;
+  try {
+    return new URL(href).hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
 }
 
 export function projectStatusDev(locale: Locale) {

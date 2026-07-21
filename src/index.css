@@ -306,14 +306,83 @@
   }
 
   .project-entry--featured {
-    @apply gap-6 border-l-2 border-accent pl-4 -ml-px;
+    @apply gap-6;
+  }
+
+  .project-entry--live {
+    @apply gap-7 sm:gap-8;
+  }
+
+  .project-entry__title {
+    @apply text-base font-semibold text-ink;
+  }
+
+  .project-entry__title--live {
+    @apply text-xl font-semibold tracking-tight sm:text-2xl;
+    letter-spacing: -0.025em;
+  }
+
+  .project-entry__desc {
+    @apply mt-2 max-w-prose text-sm leading-relaxed text-muted;
+    text-wrap: pretty;
+  }
+
+  .project-entry--live .project-entry__desc {
+    @apply mt-3 text-[15px] sm:text-base;
+  }
+
+  .project-entry__tech {
+    @apply mt-3 flex flex-wrap gap-2;
+  }
+
+  .project-entry--live .project-entry__tech {
+    @apply mt-4;
+  }
+
+  .project-entry__live {
+    @apply mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-secondary;
+  }
+
+  .project-entry__live-dot {
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-secondary;
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--secondary) 22%, transparent);
+  }
+
+  .project-entry__live-sep {
+    color: color-mix(in oklch, var(--muted) 70%, transparent);
+  }
+
+  .project-entry__live-host {
+    @apply normal-case tracking-normal font-medium text-muted;
+  }
+
+  .project-entry__cta {
+    @apply mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-deep;
+  }
+
+  .project-entry__cta--live {
+    @apply mt-5 gap-2 rounded-md bg-accent px-3.5 py-2 text-sm font-semibold text-accent-on hover:bg-accent-deep hover:text-accent-on;
+  }
+
+  .project-entry__cta--live span {
+    transition: transform 0.2s ease;
+  }
+
+  .project-entry__cta--live:hover span {
+    transform: translateX(2px);
   }
 
   @media (min-width: 768px) {
-    .project-entry--featured {
+    .project-entry--featured:not(.project-entry--live) {
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
       align-items: center;
       gap: 2rem;
+    }
+
+    .project-entry--live {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      align-items: end;
+      gap: 2.25rem;
     }
   }
 
@@ -336,9 +405,28 @@
     @apply block overflow-hidden rounded-md border border-border transition-colors;
   }
 
+  .project-entry__visual-link--live {
+    @apply rounded-lg;
+    background: color-mix(in oklch, var(--surface) 92%, transparent);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--border) 80%, transparent),
+      0 18px 40px -28px oklch(0.09 0.008 265 / 0.75);
+  }
+
+  .dark .project-entry__visual-link--live {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--border) 90%, transparent),
+      0 22px 48px -24px oklch(0 0 0 / 0.55);
+  }
+
   .project-entry__visual-link:not(.project-entry__visual-link--static):hover,
   .project-entry__visual-link:not(.project-entry__visual-link--static):focus-visible {
     border-color: oklch(0.63 0.19 38 / 0.4);
+  }
+
+  .project-entry__visual-link--live:hover,
+  .project-entry__visual-link--live:focus-visible {
+    border-color: oklch(0.63 0.19 38 / 0.55);
   }
 
   .project-entry__visual-link:focus-visible {
@@ -352,6 +440,48 @@
   }
 
   .project-thumb--featured {
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-thumb--chrome {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    background: color-mix(in oklch, var(--canvas) 70%, var(--surface));
+  }
+
+  .project-thumb__chrome {
+    @apply flex items-center gap-3 border-b border-border px-3 py-2;
+  }
+
+  .project-thumb__traffic {
+    @apply flex shrink-0 gap-1.5;
+  }
+
+  .project-thumb__traffic i {
+    @apply block h-2 w-2 rounded-full;
+    background: color-mix(in oklch, var(--muted) 45%, transparent);
+  }
+
+  .project-thumb__traffic i:nth-child(1) {
+    background: oklch(0.68 0.14 25 / 0.75);
+  }
+
+  .project-thumb__traffic i:nth-child(2) {
+    background: oklch(0.78 0.12 85 / 0.7);
+  }
+
+  .project-thumb__traffic i:nth-child(3) {
+    background: oklch(0.7 0.12 145 / 0.7);
+  }
+
+  .project-thumb__url {
+    @apply min-w-0 flex-1 truncate rounded-md px-2.5 py-1 text-[11px] font-medium tracking-tight text-muted;
+    background: color-mix(in oklch, var(--canvas) 55%, transparent);
+  }
+
+  .project-thumb__viewport {
+    @apply relative overflow-hidden;
     aspect-ratio: 16 / 9;
   }
 
@@ -405,7 +535,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .project-thumb__image {
+    .project-thumb__image,
+    .project-entry__cta--live span {
       transition: none;
     }
   }

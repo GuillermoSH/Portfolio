@@ -187,7 +187,7 @@ export const FEATURED_PROJECTS: ProjectItem[] = [
     id: "tenaasesores",
     name: "tenaasesores.es",
     description:
-      "Web de la asesoría en Next.js, con datos en vivo desde Odoo. En producción en Vercel.",
+      "Web corporativa en producción: Next.js, datos en vivo desde Odoo y deploy en Vercel.",
     tech: ["Next.js", "Odoo", "Vercel"],
     href: "https://www.tenaasesores.es/",
     linkType: "site",
