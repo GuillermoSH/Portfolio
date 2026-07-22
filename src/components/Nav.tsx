@@ -172,7 +172,7 @@ export function Nav({ locale, onLocaleChange, theme, onThemeToggle }: NavProps) 
           <button
             type="button"
             onClick={() => onLocaleChange(locale === "es" ? "en" : "es")}
-            className="rounded-md px-2 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted transition-colors hover:text-ink"
+            className="inline-flex h-11 min-w-11 items-center justify-center rounded-md px-2 text-xs font-semibold uppercase tracking-wide text-muted transition-colors hover:text-ink"
             aria-label={tr(locale, "Cambiar idioma", "Switch language")}
           >
             {locale === "es" ? "EN" : "ES"}
@@ -180,7 +180,7 @@ export function Nav({ locale, onLocaleChange, theme, onThemeToggle }: NavProps) 
           <button
             type="button"
             onClick={onThemeToggle}
-            className="rounded-md p-2 text-muted transition-colors hover:text-ink"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-muted transition-colors hover:text-ink"
             aria-label={tr(
               locale,
               theme === "dark" ? "Modo claro" : "Modo oscuro",
@@ -192,7 +192,7 @@ export function Nav({ locale, onLocaleChange, theme, onThemeToggle }: NavProps) 
           </button>
           <button
             type="button"
-            className="rounded-md p-2 text-ink md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-ink md:hidden"
             aria-label={tr(locale, "Abrir menú", "Open menu")}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"

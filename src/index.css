@@ -8,13 +8,13 @@
     --surface: oklch(0.99 0.002 265);
     --ink: oklch(0.18 0.012 265);
     --muted: oklch(0.48 0.018 265);
-    --accent: oklch(0.63 0.19 38);
-    --accent-deep: oklch(0.55 0.2 36);
+    --accent: oklch(0.54 0.19 38);
+    --accent-deep: oklch(0.45 0.2 36);
     --accent-on: oklch(0.14 0.02 38);
-    --secondary: oklch(0.56 0.11 198);
-    --secondary-deep: oklch(0.48 0.12 195);
+    --secondary: oklch(0.49 0.11 198);
+    --secondary-deep: oklch(0.4 0.12 195);
     --border: oklch(0.18 0.012 265 / 0.12);
-    --focus-ring: oklch(0.63 0.19 38);
+    --focus-ring: oklch(0.54 0.19 38);
   }
 
   .dark {
@@ -563,6 +563,7 @@
     min-height: var(--pipeline-panel);
     height: var(--pipeline-panel);
     align-items: center;
+    align-items: safe center;
     justify-content: center;
     padding: 0.75rem 1rem 1.25rem;
     box-sizing: border-box;
@@ -785,7 +786,7 @@
     @apply inline-flex text-secondary;
   }
 
-  @media (max-height: 720px) {
+  @media (max-height: 860px) {
     .pipeline-scroll {
       --pipeline-header: 3.5rem;
       --pipeline-panel: calc(100vh - var(--pipeline-header));

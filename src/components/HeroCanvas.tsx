@@ -4,9 +4,12 @@ import * as THREE from "three";
 import { LOGISTICS_SHIP } from "../lib/logisticsShip";
 import { LogisticsShipModel } from "./LogisticsShipModel";
 import { heroScrollRef } from "../lib/heroScroll";
+import { useIsDarkMode } from "../hooks/useIsDarkMode";
 
 const ACCENT = LOGISTICS_SHIP.body;
 const SECONDARY = "#358f84";
+/** Cool neutral glow for light mode: keeps the orange hub glow from reading as a cream/peach disc on a near-white canvas. */
+const GLOW_LIGHT = "#a7aebb";
 const STAR_COUNT = 200;
 
 const PLANET_COLORS = [
@@ -243,11 +246,11 @@ function PlanetMesh({
   return (
     <group ref={spinRef}>
       <mesh>
-        <sphereGeometry args={[size, 20, 20]} />
+        <sphereGeometry args={[size, 14, 14]} />
         <meshBasicMaterial color={color} />
       </mesh>
       <mesh scale={1.08}>
-        <sphereGeometry args={[size, 14, 14]} />
+        <sphereGeometry args={[size, 10, 10]} />
         <meshBasicMaterial color={color} transparent opacity={0.18} />
       </mesh>
       {withRing ? (
@@ -306,6 +309,9 @@ function DysonHub() {
   const coreRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const positionsRef = usePositions();
+  const isDark = useIsDarkMode();
+  const glowOpacityBase = isDark ? 0.06 : 0.03;
+  const glowOpacityScroll = isDark ? 0.1 : 0.045;
 
   useFrame((state) => {
     const p = heroScrollRef.current;
@@ -320,7 +326,7 @@ function DysonHub() {
         (3.1 + Math.sin(t * 1.2) * 0.14) * (1 + p * 0.45),
       );
       (glowRef.current.material as THREE.MeshBasicMaterial).opacity =
-        0.06 + p * 0.1;
+        glowOpacityBase + p * glowOpacityScroll;
     }
     if (shellRef.current) {
       shellRef.current.rotation.y = t * 0.06;
@@ -331,15 +337,19 @@ function DysonHub() {
   return (
     <group>
       <mesh ref={glowRef}>
-        <sphereGeometry args={[0.48, 20, 20]} />
-        <meshBasicMaterial color={ACCENT} transparent opacity={0.06} />
+        <sphereGeometry args={[0.48, 16, 16]} />
+        <meshBasicMaterial
+          color={isDark ? ACCENT : GLOW_LIGHT}
+          transparent
+          opacity={glowOpacityBase}
+        />
       </mesh>
       <mesh ref={coreRef}>
-        <sphereGeometry args={[0.22, 24, 24]} />
+        <sphereGeometry args={[0.22, 18, 18]} />
         <meshBasicMaterial color="#fff4e8" />
       </mesh>
       <mesh scale={0.92}>
-        <sphereGeometry args={[0.22, 16, 16]} />
+        <sphereGeometry args={[0.22, 12, 12]} />
         <meshBasicMaterial color={ACCENT} />
       </mesh>
       <group ref={shellRef}>

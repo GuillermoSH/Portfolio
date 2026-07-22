@@ -4,9 +4,15 @@ const HeroCanvas = lazy(() =>
   import("./HeroCanvas").then((m) => ({ default: m.HeroCanvas })),
 );
 
+type IdleWindow = Window & {
+  requestIdleCallback?: (callback: () => void, opts?: { timeout: number }) => number;
+  cancelIdleCallback?: (handle: number) => void;
+};
+
 export function HeroScene() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [webglOk, setWebglOk] = useState(true);
+  const [canMount, setCanMount] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -26,6 +32,20 @@ export function HeroScene() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Defer the heavy three.js/@react-three/fiber chunk until the main thread
+  // is idle, so it doesn't compete with fonts and critical hero copy on load.
+  useEffect(() => {
+    const win = window as IdleWindow;
+    if (typeof win.requestIdleCallback === "function") {
+      const handle = win.requestIdleCallback(() => setCanMount(true), {
+        timeout: 1500,
+      });
+      return () => win.cancelIdleCallback?.(handle);
+    }
+    const timeout = window.setTimeout(() => setCanMount(true), 200);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   if (reducedMotion || !webglOk) {
     return (
       <div className="hero-canvas-layer hero-canvas-layer--fallback" aria-hidden="true">
@@ -40,6 +60,12 @@ export function HeroScene() {
           <span className="hero-orbit-static__node hero-orbit-static__node--d" />
         </div>
       </div>
+    );
+  }
+
+  if (!canMount) {
+    return (
+      <div className="hero-canvas-layer hero-canvas-layer--fallback" aria-hidden="true" />
     );
   }
 
