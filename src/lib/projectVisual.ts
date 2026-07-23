@@ -2,7 +2,6 @@ const PROJECT_HUES: Record<string, number> = {
   syntia: 198,
   "cvorotava-team-manager": 265,
   netpulse: 38,
-  "tic-tac-toe": 285,
   "cvorotava-back": 210,
 };
 

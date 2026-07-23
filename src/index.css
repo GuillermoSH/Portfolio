@@ -541,6 +541,71 @@
     }
   }
 
+  /* Extra section (certs / tools / homelab / aws) */
+
+  .extra-card {
+    @apply flex items-start gap-3 rounded-md border border-border p-3 transition-colors duration-300;
+    background: oklch(0.18 0.012 265 / 0.02);
+  }
+
+  .dark .extra-card {
+    background: oklch(0.93 0.006 265 / 0.03);
+  }
+
+  .extra-card:hover,
+  .extra-card:focus-within {
+    border-color: oklch(0.63 0.19 38 / 0.4);
+  }
+
+  .extra-card__icon {
+    @apply mt-0.5 h-5 w-5 flex-none text-accent;
+  }
+
+  .extra-card__body {
+    @apply min-w-0 flex-1;
+  }
+
+  .extra-card__title {
+    @apply text-sm font-medium text-ink;
+  }
+
+  .extra-card__meta {
+    @apply text-xs text-muted;
+  }
+
+  .extra-card__desc {
+    @apply mt-1 text-xs leading-relaxed text-muted;
+  }
+
+  .extra-card__link {
+    @apply mt-1.5 inline-flex items-center gap-1 text-sm font-medium text-accent transition-colors hover:text-accent-deep;
+  }
+
+  .extra-summary {
+    @apply inline-flex cursor-pointer list-none items-center gap-2 rounded-full border border-border px-3 py-1.5 text-sm font-medium text-ink transition-colors;
+  }
+
+  .extra-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .extra-summary:hover {
+    border-color: oklch(0.63 0.19 38 / 0.4);
+  }
+
+  .group[open] .extra-summary {
+    border-color: oklch(0.56 0.11 198 / 0.45);
+    color: var(--secondary);
+  }
+
+  .extra-summary__chevron {
+    @apply h-3.5 w-3.5 text-muted transition-transform duration-300;
+  }
+
+  .group[open] .extra-summary__chevron {
+    transform: rotate(180deg);
+    color: var(--secondary);
+  }
 
   /* Stack pipeline */
 

@@ -18,8 +18,8 @@ const SECTION_LABELS = {
     en: "Certifications",
   },
   tools: {
-    es: "Herramientas",
-    en: "Tools",
+    es: "Stack de uso diario",
+    en: "Daily stack",
   },
   homelab: {
     es: "Homelab",
@@ -72,6 +72,55 @@ export function projectStatusDev(locale: Locale) {
 
 export function viewCert(locale: Locale) {
   return tr(locale, "Ver", "View");
+}
+
+const MONTHS_ES: Record<string, number> = {
+  ene: 0,
+  feb: 1,
+  mar: 2,
+  abr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  ago: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dic: 11,
+};
+
+export function certExpiry(dateRange: string): Date | null {
+  const parts = dateRange.split("—").map((s) => s.trim());
+  if (parts.length < 2) return null;
+
+  const match = parts[1].match(/^([A-Za-zÁÉÍÓÚáéíóú]{3,4})\.?\s+(\d{4})$/);
+  if (!match) return null;
+
+  const month = MONTHS_ES[match[1].toLowerCase().slice(0, 3)];
+  if (month === undefined) return null;
+
+  return new Date(Number(match[2]), month + 1, 0);
+}
+
+export function isCertExpired(dateRange: string, now = new Date()): boolean {
+  const expiry = certExpiry(dateRange);
+  return expiry ? expiry < now : false;
+}
+
+export function certStatusLabel(locale: Locale, expired: boolean) {
+  return tr(locale, expired ? "No vigente" : "Vigente", expired ? "Expired" : "Active");
+}
+
+export function homelabIntro(locale: Locale) {
+  return tr(
+    locale,
+    "Un homelab casero para practicar despliegue, monitorización y redes: contenedores gestionados con Dockge, monitorización con Uptime Kuma y Beszel, y proxy inverso con Nginx Proxy Manager, todo sobre Docker Compose en mi red local.",
+    "A home lab for practicing deployment, monitoring and networking: containers managed with Dockge, monitoring via Uptime Kuma and Beszel, and reverse proxy with Nginx Proxy Manager, all running on Docker Compose on my local network.",
+  );
+}
+
+export function learnMoreLabel(locale: Locale) {
+  return tr(locale, "Saber más", "Learn more");
 }
 
 export function skipLabel(locale: Locale) {

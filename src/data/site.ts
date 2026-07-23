@@ -219,14 +219,6 @@ export const FEATURED_PROJECTS: ProjectItem[] = [
     href: "https://github.com/GuillermoSH/NetPulse",
   },
   {
-    id: "tic-tac-toe",
-    name: "tic-tac-toe",
-    description:
-      "Tres en raya con animaciones, estadísticas y temas personalizables.",
-    tech: ["TypeScript", "UI"],
-    href: "https://github.com/GuillermoSH/tic-tac-toe",
-  },
-  {
     id: "cvorotava-back",
     name: "CVOrotava-back",
     description: "Backend Java para dashboard interno y gestión de tareas.",
@@ -267,42 +259,22 @@ export const CERTIFICATIONS: CertItem[] = [
   },
 ];
 
-export type DailyTool = {
-  id: string;
-  iconClass: string;
-  title: string;
-  description: string;
-  href: string;
-};
-
-export const DAILY_TOOLS: DailyTool[] = [
-  {
-    id: "github",
-    iconClass: "fa-brands fa-github",
-    title: "GitHub",
-    description:
-      "Repos, CI y revisiones: centro de gravedad del día a día de código.",
-    href: "https://github.com/",
-  },
-  {
-    id: "notion",
-    iconClass: "fa-solid fa-n font-black",
-    title: "Notion",
-    description: "Contexto de proyectos, tableros y documentación viva.",
-    href: "https://www.notion.so/",
-  },
-  {
-    id: "n8n",
-    iconClass: "fa-solid fa-diagram-project",
-    title: "n8n",
-    description: "Automatización: APIs, webhooks y tareas repetitivas.",
-    href: "https://n8n.io/",
-  },
-];
+export const DAILY_STACK = [
+  "Next.js",
+  "Tailwind",
+  "Vite",
+  "GitHub",
+  "n8n",
+  "Supabase",
+  "Vercel",
+  "Bash",
+] as const;
 
 export type HomelabLink =
   | { type: "link"; label: string; href: string }
   | { type: "text"; label: string };
+
+export const HOMELAB_MORE_HREF: string | undefined = undefined;
 
 export const HOMELAB_ITEMS: HomelabLink[] = [
   { type: "link", label: "Dockge", href: "https://github.com/louislam/dockge" },
