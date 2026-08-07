@@ -2,7 +2,8 @@ export const SITE = {
   name: "Guillermo Sicilia",
   fullName: "Guillermo Sicilia Hernández",
   title: "Full-stack",
-  location: "Tenerife, España",
+  locationEs: "Tenerife, España",
+  locationEn: "Tenerife, Spain",
   linkedin:
     "https://www.linkedin.com/in/guillermo-sicilia-hern%C3%A1ndez-95861523b/",
   github: "https://github.com/GuillermoSH",

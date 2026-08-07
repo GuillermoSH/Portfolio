@@ -138,7 +138,7 @@ export function IntroSection({ locale }: IntroSectionProps) {
           <div className="section-block w-full !max-w-6xl !py-0">
             <div className="max-w-xl">
               <p className="hero-item text-[11px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs sm:tracking-[0.14em]">
-                {SITE.location}
+                {tr(locale, SITE.locationEs, SITE.locationEn)}
               </p>
 
               <span
