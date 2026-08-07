@@ -20,6 +20,7 @@ module.exports = {
         secondary: {
           DEFAULT: "var(--secondary)",
           deep: "var(--secondary-deep)",
+          on: "var(--secondary-on)",
         },
         border: "var(--border)",
       },

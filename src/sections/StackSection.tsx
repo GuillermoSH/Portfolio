@@ -10,6 +10,7 @@ import {
 import type { Locale } from "../lib/i18n";
 import { tr } from "../lib/i18n";
 import { stackLead } from "../lib/present";
+import { ToolIcon, hasToolIcon } from "../components/ToolIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -213,7 +214,7 @@ export function StackSection({ locale }: StackSectionProps) {
   return (
     <section
       id="stack"
-      className="pipeline-section border-t border-border"
+      className="pipeline-section"
       aria-labelledby={titleId}
     >
       <div
@@ -317,7 +318,9 @@ export function StackSection({ locale }: StackSectionProps) {
                 ) : null}
                 <motion.span
                   className="pipeline__flow-head"
-                  animate={{ left: `calc(${displayPct}% - 0.25rem)` }}
+                  animate={{
+                    left: `calc((100% - 0.625rem) * ${displayPct / 100})`,
+                  }}
                   transition={{ duration: 0.35, ease: EASE_OUT }}
                 />
               </div>
@@ -337,10 +340,14 @@ export function StackSection({ locale }: StackSectionProps) {
                       <li key={tool}>
                         <span className="pipeline__chip">
                           <span
-                            className="pipeline__chip-check"
+                            className="pipeline__chip-mark"
                             aria-hidden="true"
                           >
-                            <CheckIcon />
+                            {hasToolIcon(tool) ? (
+                              <ToolIcon label={tool} />
+                            ) : (
+                              <CheckIcon />
+                            )}
                           </span>
                           {tool}
                         </span>
@@ -374,10 +381,14 @@ export function StackSection({ locale }: StackSectionProps) {
                       >
                         <span className="pipeline__chip">
                           <span
-                            className="pipeline__chip-check"
+                            className="pipeline__chip-mark"
                             aria-hidden="true"
                           >
-                            <CheckIcon />
+                            {hasToolIcon(tool) ? (
+                              <ToolIcon label={tool} />
+                            ) : (
+                              <CheckIcon />
+                            )}
                           </span>
                           {tool}
                         </span>

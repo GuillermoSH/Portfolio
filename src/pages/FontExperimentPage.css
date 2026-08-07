@@ -1,0 +1,72 @@
+.font-lab-page {
+  min-height: 100vh;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: "Albert Sans", system-ui, sans-serif;
+  padding: 4rem 1.5rem 6rem;
+}
+
+.font-lab-intro {
+  max-width: 640px;
+  margin: 0 auto 4rem;
+}
+
+.font-lab-intro h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.font-lab-intro p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.font-lab-sample {
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.font-lab-sample:last-child {
+  border-bottom: none;
+}
+
+.font-lab-sample__title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1.1rem;
+}
+
+.font-lab-sample__text {
+  font-size: 1rem;
+  line-height: 2;
+  color: var(--ink);
+}
+
+.font-lab-word {
+  position: relative;
+  display: inline-block;
+  line-height: 1.1;
+  white-space: nowrap;
+  color: color-mix(in oklch, var(--ink) 30%, transparent);
+}
+
+.font-lab-word__note {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(var(--note-fit-scale, 1));
+  transform-origin: center center;
+  font-weight: 700;
+  font-size: 1.1em;
+  line-height: 1;
+  color: var(--accent);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}

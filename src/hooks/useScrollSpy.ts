@@ -5,21 +5,9 @@ export function useScrollSpy(): string {
   const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0].href);
 
   useEffect(() => {
-    const links = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>(
-        "#site-header a[href^='#']",
-      ),
-    );
-    const ids = [
-      ...new Set(
-        links
-          .map((a) => a.getAttribute("href"))
-          .filter((h): h is string => Boolean(h && h.length > 1)),
-      ),
-    ];
-    const sections = ids
-      .map((id) => document.querySelector(id))
-      .filter((el): el is HTMLElement => el !== null);
+    const sections = NAV_LINKS.map((link) =>
+      document.querySelector<HTMLElement>(link.href),
+    ).filter((el): el is HTMLElement => el !== null);
 
     if (!sections.length) return;
 
