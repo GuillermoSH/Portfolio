@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SITE } from "../data/site";
 import type { Locale } from "../lib/i18n";
 import { tr } from "../lib/i18n";
+import { HeroScene } from "../components/HeroScene";
+import { heroScrollRef, resetHeroScroll } from "../lib/heroScroll";
 import { useTypewriter } from "../hooks/useTypewriter";
 import { ToolIcon } from "../components/ToolIcon";
 
@@ -18,6 +20,10 @@ export function IntroSection({ locale }: IntroSectionProps) {
   const stickyRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    resetHeroScroll();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -51,6 +57,22 @@ export function IntroSection({ locale }: IntroSectionProps) {
         delay: 0.12,
       });
 
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.65,
+        onUpdate: (self) => {
+          heroScrollRef.current = self.progress;
+        },
+        onLeave: () => {
+          heroScrollRef.current = 1;
+        },
+        onLeaveBack: () => {
+          heroScrollRef.current = 0;
+        },
+      });
+
       if (content) {
         gsap.to(content, {
           y: -48,
@@ -82,6 +104,7 @@ export function IntroSection({ locale }: IntroSectionProps) {
 
     return () => {
       ctx.revert();
+      resetHeroScroll();
     };
   }, []);
 
@@ -105,7 +128,7 @@ export function IntroSection({ locale }: IntroSectionProps) {
         ref={stickyRef}
         className="hero-sticky sticky top-0 hero-sticky__panel overflow-hidden"
       >
-        <div className="hero-canvas-layer hero-canvas-layer--fallback" aria-hidden="true" />
+        <HeroScene />
         <div className="hero-vignette pointer-events-none" aria-hidden="true" />
 
         <div

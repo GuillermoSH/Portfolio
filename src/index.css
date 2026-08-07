@@ -388,6 +388,65 @@
     );
   }
 
+  .hero-orbit-static {
+    @apply relative h-[min(72vw,520px)] w-[min(72vw,520px)];
+  }
+
+  .hero-orbit-static--full {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .hero-orbit-static__ring {
+    @apply absolute inset-0 rounded-full;
+    border: 1px solid oklch(0.63 0.19 38 / 0.18);
+  }
+
+  .hero-orbit-static__ring--outer {
+    transform: rotate(-18deg) scale(1);
+  }
+
+  .hero-orbit-static__ring--mid {
+    transform: rotate(12deg) scale(0.86);
+    border-color: oklch(0.63 0.19 38 / 0.14);
+  }
+
+  .hero-orbit-static__ring--inner {
+    transform: rotate(24deg) scale(0.68);
+    border-color: oklch(0.63 0.19 38 / 0.1);
+  }
+
+  .hero-orbit-static__hub {
+    @apply absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full;
+    background: oklch(0.63 0.19 38);
+    box-shadow: 0 0 24px oklch(0.63 0.19 38 / 0.4);
+  }
+
+  .hero-orbit-static__node {
+    @apply absolute h-1.5 w-1.5 rounded-sm;
+    background: oklch(0.55 0.2 36 / 0.7);
+    transform: rotate(45deg);
+  }
+
+  .hero-orbit-static__node--a {
+    top: 12%;
+    right: 16%;
+  }
+
+  .hero-orbit-static__node--b {
+    bottom: 18%;
+    left: 10%;
+  }
+
+  .hero-orbit-static__node--c {
+    top: 36%;
+    left: 6%;
+  }
+
+  .hero-orbit-static__node--d {
+    bottom: 28%;
+    right: 8%;
+  }
+
   .hero-vignette {
     @apply absolute inset-0 z-[1];
     background:
