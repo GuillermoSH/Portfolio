@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HERO_CHIPS, SITE } from "../data/site";
+import { SITE } from "../data/site";
 import type { Locale } from "../lib/i18n";
 import { tr } from "../lib/i18n";
-import { HeroScene } from "../components/HeroScene";
-import { heroScrollRef, resetHeroScroll } from "../lib/heroScroll";
+import { useTypewriter } from "../hooks/useTypewriter";
+import { ToolIcon } from "../components/ToolIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,10 +18,6 @@ export function IntroSection({ locale }: IntroSectionProps) {
   const stickyRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    resetHeroScroll();
-  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -55,22 +51,6 @@ export function IntroSection({ locale }: IntroSectionProps) {
         delay: 0.12,
       });
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.65,
-        onUpdate: (self) => {
-          heroScrollRef.current = self.progress;
-        },
-        onLeave: () => {
-          heroScrollRef.current = 1;
-        },
-        onLeaveBack: () => {
-          heroScrollRef.current = 0;
-        },
-      });
-
       if (content) {
         gsap.to(content, {
           y: -48,
@@ -102,11 +82,17 @@ export function IntroSection({ locale }: IntroSectionProps) {
 
     return () => {
       ctx.revert();
-      resetHeroScroll();
     };
   }, []);
 
-  const stackLine = HERO_CHIPS.join(" · ");
+  const typedPhrases = useMemo(() => {
+    const firstName = SITE.name.split(" ")[0];
+    return [
+      tr(locale, `¡Hola! Soy ${firstName}`, `Hi! I'm ${firstName}`),
+      tr(locale, "Desarrollador Full-stack", "Full-stack Developer"),
+    ];
+  }, [locale]);
+  const { text: typedText, phase: typedPhase } = useTypewriter(typedPhrases);
 
   return (
     <section
@@ -117,16 +103,16 @@ export function IntroSection({ locale }: IntroSectionProps) {
     >
       <div
         ref={stickyRef}
-        className="hero-sticky sticky top-14 hero-sticky__panel overflow-hidden"
+        className="hero-sticky sticky top-0 hero-sticky__panel overflow-hidden"
       >
-        <HeroScene />
+        <div className="hero-canvas-layer hero-canvas-layer--fallback" aria-hidden="true" />
         <div className="hero-vignette pointer-events-none" aria-hidden="true" />
 
         <div
           ref={contentRef}
-          className="relative z-10 flex h-full items-end pb-20 md:items-center md:pb-0"
+          className="relative z-10 flex h-full items-end pb-32 md:items-center md:pb-0"
         >
-          <div className="section-block w-full !py-0">
+          <div className="section-block w-full !max-w-6xl !py-0">
             <div className="max-w-xl">
               <p className="hero-item text-[11px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs sm:tracking-[0.14em]">
                 {SITE.location}
@@ -137,72 +123,55 @@ export function IntroSection({ locale }: IntroSectionProps) {
                 aria-hidden="true"
               />
 
-              <h1 className="hero-item mt-4 text-[clamp(2.25rem,11vw,4.5rem)] font-bold leading-[0.95] tracking-[-0.03em] text-ink sm:mt-6">
-                {SITE.name.split(" ").map((part, i) => (
-                  <span key={part} className="block">
-                    {i === 1 ? (
-                      <span className="text-accent">{part}</span>
-                    ) : (
-                      part
-                    )}
-                  </span>
-                ))}
+              <h1 className="hero-item mt-4 min-h-[1.3em] whitespace-nowrap text-[clamp(1.2rem,5.3vw,2.75rem)] font-bold leading-[1.08] tracking-[-0.02em] text-ink sm:mt-6">
+                <span aria-hidden="true" className="hero-typed-row">
+                  {typedText}
+                  <span
+                    className={`hero-caret ${typedPhase !== "idle" ? "hero-caret--solid" : ""}`}
+                    aria-hidden="true"
+                  />
+                </span>
+                <span className="sr-only">
+                  {tr(
+                    locale,
+                    `¡Hola! Soy ${SITE.fullName}, desarrollador full-stack.`,
+                    `Hi! I'm ${SITE.fullName}, a full-stack developer.`,
+                  )}
+                </span>
               </h1>
 
               <p className="hero-item mt-4 text-[15px] leading-relaxed text-muted sm:mt-6 sm:text-base md:text-lg">
-                <span className="font-semibold text-ink">{SITE.title}</span>
-                {" — "}
                 {tr(
                   locale,
-                  "integración, backend y frontend.",
-                  "integration, backend and frontend.",
+                  "Integración, backend y frontend.",
+                  "Integration, backend and frontend.",
                 )}
               </p>
 
-              <ul
-                className="hero-item mt-4 flex flex-wrap gap-2 sm:mt-5 md:hidden"
-                aria-label={tr(locale, "Stack principal", "Core stack")}
-              >
-                {HERO_CHIPS.map((chip) => (
-                  <li key={chip}>
-                    <span className="inline-block rounded-full border border-border px-2 py-0.5 text-[11px] font-medium text-muted">
-                      {chip}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="hero-item mt-5 hidden text-sm leading-relaxed text-muted/90 md:block">
-                {stackLine}
-              </p>
-
-              <div className="hero-item mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 sm:mt-10 sm:gap-x-6">
+              <div className="hero-item mt-8 flex flex-wrap items-center gap-3 sm:mt-10">
                 <a
                   href={SITE.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-accent transition-colors hover:text-accent-deep"
+                  className="hero-cta hero-cta--primary group"
                 >
+                  <ToolIcon
+                    label="LinkedIn"
+                    className="hero-cta__icon transition-transform group-hover:scale-110"
+                  />
                   LinkedIn
-                  <span
-                    className="transition-transform group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
                 </a>
                 <a
                   href={SITE.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-secondary transition-colors hover:text-secondary-deep"
+                  className="hero-cta hero-cta--secondary group"
                 >
+                  <ToolIcon
+                    label="GitHub"
+                    className="hero-cta__icon transition-transform group-hover:scale-110"
+                  />
                   GitHub
-                  <span
-                    className="text-muted transition-transform group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
                 </a>
               </div>
             </div>
