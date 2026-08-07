@@ -3,17 +3,24 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Tag } from "./Tag";
 import type { ExperienceItem } from "../data/site";
+import type { Locale } from "../lib/i18n";
+import { tr } from "../lib/i18n";
 import { parseStackNote } from "../lib/present";
 
 gsap.registerPlugin(ScrollTrigger);
 
 type TrackItemProps = {
   job: ExperienceItem;
+  locale: Locale;
 };
 
-export function TrackItem({ job }: TrackItemProps) {
+export function TrackItem({ job, locale }: TrackItemProps) {
   const itemRef = useRef<HTMLLIElement>(null);
   const stack = parseStackNote(job.stackNote);
+  const title = tr(locale, job.titleEs, job.titleEn);
+  const period = tr(locale, job.periodEs, job.periodEn);
+  const location = tr(locale, job.locationEs, job.locationEn);
+  const paragraphs = tr(locale, job.paragraphsEs, job.paragraphsEn);
 
   useEffect(() => {
     const item = itemRef.current;
@@ -80,16 +87,16 @@ export function TrackItem({ job }: TrackItemProps) {
     <li ref={itemRef} className="track-item relative" data-active="false">
       <span className="track-item__dot" aria-hidden="true" />
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h3 className="track-item__title text-base font-semibold">{job.title}</h3>
+        <h3 className="track-item__title text-base font-semibold">{title}</h3>
         <time className="text-sm text-muted" dateTime={job.datetime}>
-          {job.period}
+          {period}
         </time>
       </div>
       <p className="mt-1 text-sm text-muted" data-track-reveal>
-        {job.location}
+        {location}
       </p>
       <div className="mt-3 max-w-prose space-y-3">
-        {job.paragraphs.map((paragraph, index) => (
+        {paragraphs.map((paragraph, index) => (
           <p
             key={`${job.id}-p${index}`}
             className="text-sm leading-relaxed text-ink/90"

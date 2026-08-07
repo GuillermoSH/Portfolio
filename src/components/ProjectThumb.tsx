@@ -1,10 +1,13 @@
 import type { CSSProperties } from "react";
 import type { ProjectItem } from "../data/site";
+import type { Locale } from "../lib/i18n";
+import { tr } from "../lib/i18n";
 import { projectMonogram, projectVisualHue } from "../lib/projectVisual";
 import { projectHostLabel } from "../lib/present";
 
 type ProjectThumbProps = {
   project: ProjectItem;
+  locale?: Locale;
   featured?: boolean;
   liveChrome?: boolean;
   className?: string;
@@ -12,6 +15,7 @@ type ProjectThumbProps = {
 
 export function ProjectThumb({
   project,
+  locale = "es",
   featured = false,
   liveChrome = false,
   className = "",
@@ -19,12 +23,13 @@ export function ProjectThumb({
   const hue = projectVisualHue(project.id);
   const monogram = projectMonogram(project.name);
   const host = projectHostLabel(project.href);
+  const previewAlt = tr(locale, project.previewAltEs, project.previewAltEn);
 
   if (project.preview) {
     const image = (
       <img
         src={project.preview}
-        alt={project.previewAlt ?? project.name}
+        alt={previewAlt ?? project.name}
         className="project-thumb__image"
         loading="lazy"
         decoding="async"

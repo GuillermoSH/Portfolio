@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Award, ChevronDown, GraduationCap } from "lucide-react";
 import {
-  AWS_COURSES,
   CERTIFICATIONS,
   DAILY_STACK,
   HOMELAB_ITEMS,
@@ -12,9 +10,10 @@ import {
   NAV_LINKS_EN,
 } from "../data/site";
 import { Tag } from "../components/Tag";
+import { ToolIcon, hasToolIcon } from "../components/ToolIcon";
 import type { Locale } from "../lib/i18n";
+import { tr } from "../lib/i18n";
 import {
-  awsSummary,
   certStatusLabel,
   homelabIntro,
   isCertExpired,
@@ -28,6 +27,25 @@ gsap.registerPlugin(ScrollTrigger);
 type ExtraSectionProps = {
   locale: Locale;
 };
+
+function CheckIcon() {
+  return (
+    <svg
+      className="manifest-row__check-icon"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3.5 8.5 L6.5 11.5 L12.5 4.5"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 function sectionTitle(locale: Locale) {
   return (locale === "en" ? NAV_LINKS_EN : NAV_LINKS).find(
@@ -49,6 +67,7 @@ export function ExtraSection({ locale }: ExtraSectionProps) {
     if (reduced) return;
 
     const groups = el.querySelectorAll<HTMLElement>("[data-extra-group]");
+    const tiles = el.querySelectorAll<HTMLElement>(".manifest-row");
 
     const ctx = gsap.context(() => {
       gsap.from(groups, {
@@ -63,6 +82,21 @@ export function ExtraSection({ locale }: ExtraSectionProps) {
           toggleActions: "play none none none",
         },
       });
+
+      if (tiles.length) {
+        gsap.from(tiles, {
+          x: -10,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.04,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el.querySelector(".extra-tools"),
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
     }, el);
 
     return () => ctx.revert();
@@ -72,7 +106,7 @@ export function ExtraSection({ locale }: ExtraSectionProps) {
     <section
       ref={sectionRef}
       id="mas"
-      className="section-block border-t border-border"
+      className="section-block"
       aria-labelledby={titleId}
     >
       <h2 id={titleId} className="section-title">
@@ -84,114 +118,138 @@ export function ExtraSection({ locale }: ExtraSectionProps) {
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">
             {sectionLabel(locale, "extra")}
           </h3>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ol className="relative space-y-6 border-l border-border pl-6">
             {CERTIFICATIONS.map((cert) => {
               const expired = isCertExpired(cert.date);
               const hasExpiry = /—/.test(cert.date);
               return (
-                <li key={cert.title} className="extra-card">
-                  <Award
-                    className={`extra-card__icon ${expired ? "text-muted" : ""}`}
+                <li key={cert.title} className="relative">
+                  <span
+                    className={`cert-item__dot ${expired ? "cert-item__dot--muted" : ""}`}
                     aria-hidden="true"
                   />
-                  <div className="extra-card__body">
-                    <p className="extra-card__title">{cert.title}</p>
-                    <p className="extra-card__meta">
-                      {cert.category} · {cert.date}
-                      {hasExpiry ? (
-                        <>
-                          {" "}
-                          ·{" "}
-                          <span
-                            className={
-                              expired
-                                ? "text-muted"
-                                : "font-medium text-secondary"
-                            }
-                          >
-                            {certStatusLabel(locale, expired)}
-                          </span>
-                        </>
-                      ) : null}
-                    </p>
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h4 className="text-sm font-semibold text-ink">
+                      {cert.title}
+                    </h4>
                     <a
                       href={cert.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="extra-card__link"
+                      className="extra-link"
                     >
                       {viewCert(locale)} →
                     </a>
                   </div>
+                  <p className="mt-1 text-xs text-muted">
+                    {tr(locale, cert.categoryEs, cert.categoryEn)} · {cert.date}
+                    {hasExpiry ? (
+                      <>
+                        {" "}
+                        ·{" "}
+                        <span
+                          className={
+                            expired
+                              ? "text-muted"
+                              : "font-medium text-secondary"
+                          }
+                        >
+                          {certStatusLabel(locale, expired)}
+                        </span>
+                      </>
+                    ) : null}
+                  </p>
                 </li>
               );
             })}
-          </ul>
+          </ol>
         </div>
 
-        <div data-extra-group>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">
+        <div data-extra-group className="extra-tools">
+          <h3 className="mb-6 text-sm font-semibold uppercase tracking-wide text-muted">
             {sectionLabel(locale, "tools")}
           </h3>
-          <ul className="flex flex-wrap gap-2">
-            {DAILY_STACK.map((tool) => (
-              <li key={tool}>
-                <Tag>{tool}</Tag>
-              </li>
-            ))}
-          </ul>
+          <div className="manifest-card">
+            <div className="manifest-card__bar">
+              <span className="manifest-card__prompt">
+                <span className="manifest-card__user">guillermosh</span>
+                <span className="manifest-card__at">@</span>
+                <span className="manifest-card__host">portfolio</span>
+              </span>
+              <span>
+                :~$ cat daily-stack.log
+                <span className="manifest-card__cursor" aria-hidden="true" />
+              </span>
+            </div>
+            <ul className="manifest-list">
+              {DAILY_STACK.map((tool) => (
+                <li key={tool.label} className="manifest-row">
+                  <span className="manifest-row__check" aria-hidden="true">
+                    <CheckIcon />
+                  </span>
+                  <span className="manifest-row__icon" aria-hidden="true">
+                    {hasToolIcon(tool.label) ? (
+                      <ToolIcon label={tool.label} />
+                    ) : null}
+                  </span>
+                  <span className="manifest-row__name">{tool.label}</span>
+                  <span className="manifest-row__note">
+                    {tr(locale, tool.noteEs, tool.noteEn)}
+                  </span>
+                  <span className="manifest-row__status">
+                    {tr(locale, "OK", "OK")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div data-extra-group>
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">
             {sectionLabel(locale, "homelab")}
           </h3>
-          <div className="extra-card flex-col items-start">
-            <p className="text-sm leading-relaxed text-ink/90">
-              {homelabIntro(locale)}
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {HOMELAB_ITEMS.map((item) => (
-                <li key={item.label}>
-                  {item.type === "link" ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer">
-                      <Tag className="cursor-pointer hover:border-accent/40 hover:text-accent">
-                        {item.label}
-                      </Tag>
-                    </a>
-                  ) : (
-                    <Tag>{item.label}</Tag>
-                  )}
-                </li>
-              ))}
-            </ul>
-            {HOMELAB_MORE_HREF ? (
-              <a
-                href={HOMELAB_MORE_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="extra-card__link"
-              >
-                {learnMoreLabel(locale)} →
-              </a>
-            ) : null}
+          <div className="max-w-prose space-y-3">
+            {homelabIntro(locale).map((paragraph, index) => (
+              <p key={index} className="text-sm leading-relaxed text-ink/90">
+                {paragraph}
+              </p>
+            ))}
           </div>
-        </div>
-
-        <details className="group" data-extra-group>
-          <summary className="extra-summary">
-            <GraduationCap className="h-4 w-4" aria-hidden="true" />
-            {awsSummary(locale, AWS_COURSES.length)}
-            <ChevronDown className="extra-summary__chevron" aria-hidden="true" />
-          </summary>
-          <ul className="mt-3 space-y-1 border-l border-border pl-4">
-            {AWS_COURSES.map((course) => (
-              <li key={course} className="text-sm text-muted">
-                {course}
+          <ul className="mt-4 flex flex-wrap items-center gap-2">
+            {HOMELAB_ITEMS.map((item) => (
+              <li key={item.label} className="flex items-center">
+                {item.type === "link" ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex"
+                  >
+                    <Tag
+                      iconLabel={item.label}
+                      className="cursor-pointer hover:border-accent/40 hover:text-accent"
+                    >
+                      {item.label}
+                    </Tag>
+                  </a>
+                ) : (
+                  <Tag iconLabel={item.label}>{item.label}</Tag>
+                )}
               </li>
             ))}
           </ul>
-        </details>
+          {HOMELAB_MORE_HREF ? (
+            <a
+              href={HOMELAB_MORE_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="extra-link mt-3"
+            >
+              {learnMoreLabel(locale)} →
+            </a>
+          ) : null}
+        </div>
       </div>
     </section>
   );

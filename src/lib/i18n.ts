@@ -1,5 +1,5 @@
 export type Locale = "es" | "en";
 
-export function tr(locale: Locale, es: string, en: string) {
+export function tr<T>(locale: Locale, es: T, en: T): T {
   return locale === "en" ? en : es;
 }

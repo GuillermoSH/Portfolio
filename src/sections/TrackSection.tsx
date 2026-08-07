@@ -26,7 +26,7 @@ export function TrackSection({ locale }: TrackSectionProps) {
   return (
     <RevealSection
       id="trayectoria"
-      className="section-block border-t border-border"
+      className="section-block"
       ariaLabelledBy={titleId}
     >
       <h2 id={titleId} className="section-title">
@@ -35,7 +35,7 @@ export function TrackSection({ locale }: TrackSectionProps) {
 
       <ol className="track-list relative space-y-10 border-l border-border pl-6">
         {EXPERIENCE.map((job) => (
-          <TrackItem key={job.id} job={job} />
+          <TrackItem key={job.id} job={job} locale={locale} />
         ))}
       </ol>
     </RevealSection>
