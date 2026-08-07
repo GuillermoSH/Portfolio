@@ -492,15 +492,12 @@ function SolarNetwork() {
 
 function SceneRoot() {
   const groupRef = useRef<THREE.Group>(null);
-  const mouse = useRef({ x: 0, y: 0 });
 
   useFrame(() => {
     if (!groupRef.current) return;
     const p = heroScrollRef.current;
-    const scrollRotY = p * Math.PI * 0.55;
-    const scrollRotX = p * 0.35;
-    const targetY = scrollRotY + mouse.current.x * 0.12;
-    const targetX = scrollRotX + mouse.current.y * 0.08;
+    const targetY = p * Math.PI * 0.55;
+    const targetX = p * 0.35;
 
     groupRef.current.rotation.y = THREE.MathUtils.lerp(
       groupRef.current.rotation.y,
@@ -525,13 +522,7 @@ function SceneRoot() {
   });
 
   return (
-    <group
-      ref={groupRef}
-      onPointerMove={(e) => {
-        mouse.current.x = (e.pointer.x - 0.5) * 2;
-        mouse.current.y = (e.pointer.y - 0.5) * 2;
-      }}
-    >
+    <group ref={groupRef}>
       <StarField />
       <SolarNetwork />
     </group>
