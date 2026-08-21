@@ -15,9 +15,10 @@ import type { Locale } from "../lib/i18n";
 import { tr } from "../lib/i18n";
 import {
   certStatusLabel,
+  homelabCtaLabel,
   homelabIntro,
+  homelabPageNote,
   isCertExpired,
-  learnMoreLabel,
   sectionLabel,
   viewCert,
 } from "../lib/present";
@@ -240,14 +241,23 @@ export function ExtraSection({ locale }: ExtraSectionProps) {
             ))}
           </ul>
           {HOMELAB_MORE_HREF ? (
-            <a
-              href={HOMELAB_MORE_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="extra-link mt-3"
-            >
-              {learnMoreLabel(locale)} →
-            </a>
+            <div className="mt-5">
+              <p className="mb-3 text-sm text-muted">{homelabPageNote(locale)}</p>
+              <a
+                href={HOMELAB_MORE_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-cta hero-cta--primary group"
+              >
+                {homelabCtaLabel(locale)}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform group-hover:translate-x-0.5"
+                >
+                  →
+                </span>
+              </a>
+            </div>
           ) : null}
         </div>
       </div>

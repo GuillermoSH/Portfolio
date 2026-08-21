@@ -18,6 +18,19 @@ type ProjectModalProps = {
   onClose: () => void;
 };
 
+function CloseIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M6 6l12 12M18 6L6 18"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function ProjectModal({ project, locale, onClose }: ProjectModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -63,70 +76,72 @@ export function ProjectModal({ project, locale, onClose }: ProjectModalProps) {
         if (e.target === dialogRef.current) onClose();
       }}
     >
-      <div className="project-modal__panel">
+      <div className="project-modal__shell">
         <button
           type="button"
           className="project-modal__close"
           onClick={onClose}
           aria-label={closeLabel(locale)}
         >
-          ✕
+          <CloseIcon />
         </button>
 
-        <ProjectThumb project={project} locale={locale} className="project-modal__thumb" />
+        <div className="project-modal__panel">
+          <ProjectThumb project={project} locale={locale} className="project-modal__thumb" />
 
-        <h3 id="project-modal-title" className="project-modal__title">
-          {project.name}
-        </h3>
-        {host ? <p className="project-modal__host">{host}</p> : null}
+          <h3 id="project-modal-title" className="project-modal__title">
+            {project.name}
+          </h3>
+          {host ? <p className="project-modal__host">{host}</p> : null}
 
-        <p className="project-modal__desc">{description}</p>
+          <p className="project-modal__desc">{description}</p>
 
-        <ul className="project-modal__tech">
-          {tech.map((item) => (
-            <li key={item}>
-              <Tag>{item}</Tag>
-            </li>
-          ))}
-        </ul>
+          <ul className="project-modal__tech">
+            {tech.map((item) => (
+              <li key={item}>
+                <Tag>{item}</Tag>
+              </li>
+            ))}
+          </ul>
 
-        {goals?.length ? (
-          <div className="project-modal__block">
-            <h4 className="project-modal__block-title">
-              {projectGoalsLabel(locale)}
-            </h4>
-            <ul className="project-modal__list">
-              {goals.map((goal, index) => (
-                <li key={index}>{goal}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+          {goals?.length ? (
+            <div className="project-modal__block">
+              <h4 className="project-modal__block-title">
+                {projectGoalsLabel(locale)}
+              </h4>
+              <ul className="project-modal__list">
+                {goals.map((goal, index) => (
+                  <li key={index}>{goal}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
-        {challenges?.length ? (
-          <div className="project-modal__block">
-            <h4 className="project-modal__block-title">
-              {projectChallengesLabel(locale)}
-            </h4>
-            <ul className="project-modal__list">
-              {challenges.map((challenge, index) => (
-                <li key={index}>{challenge}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+          {challenges?.length ? (
+            <div className="project-modal__block">
+              <h4 className="project-modal__block-title">
+                {projectChallengesLabel(locale)}
+              </h4>
+              <ul className="project-modal__list">
+                {challenges.map((challenge, index) => (
+                  <li key={index}>{challenge}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
-        {linkLabel && project.href ? (
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-entry__cta"
-          >
-            {linkLabel}
-            <span aria-hidden="true">→</span>
-          </a>
-        ) : null}
+          {linkLabel && project.href ? (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-entry__cta"
+            >
+              {linkLabel}
+              <span aria-hidden="true">→</span>
+            </a>
+          ) : null}
+        </div>
       </div>
     </dialog>
   );

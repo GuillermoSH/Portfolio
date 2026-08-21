@@ -164,15 +164,27 @@ export function homelabIntro(locale: Locale): string[] {
   return [
     tr(
       locale,
-      "Homelab sobre un único nodo — un Intel NUC11ATKC4 (16GB, NVMe) — con todos los servicios en contenedores Docker vía Dockge. Pi-hole resuelve el DNS local, Nginx hace de proxy inverso y n8n automatiza tareas de red y avisos, incluso por Telegram. Por detrás, un MikroTik reparte NAT y DNS, el router del ISP va en modo bridge y dos TP-Link AX58 cubren el Wi-Fi.",
-      "A home lab on a single node — an Intel NUC11ATKC4 (16GB RAM, NVMe) — with every service running in Docker containers via Dockge. Pi-hole resolves local DNS, Nginx handles the reverse proxy, and n8n automates network tasks and alerts, even over Telegram. Behind it, a MikroTik router handles NAT and DNS, the ISP router runs in bridge mode, and two TP-Link AX58 units cover Wi-Fi.",
+      "Homelab sobre un único nodo — un Intel NUC11ATKC4 (N5105, 16GB DDR4, 500GB NVMe) — con todo en contenedores Docker vía Dockge. Pi-hole resuelve el DNS de toda la casa, Nginx Proxy Manager hace de proxy inverso y n8n automatiza tareas de red y avisos por Telegram. Por detrás, un MikroTik hEX reparte la red a dos APs TP-Link AX58, con el router del ISP en modo bridge.",
+      "A home lab on a single node — an Intel NUC11ATKC4 (N5105, 16GB DDR4, 500GB NVMe) — with everything running in Docker containers via Dockge. Pi-hole resolves DNS for the whole house, Nginx Proxy Manager handles the reverse proxy, and n8n automates network tasks and Telegram alerts. Behind it, a MikroTik hEX routes to two TP-Link AX58 access points, with the ISP router in bridge mode.",
     ),
     tr(
       locale,
-      "La seguridad es el pilar central: cero puertos abiertos salvo el webhook de n8n, acceso remoto solo por Tailscale, Fail2ban de guardia y autoescaneos de malware con rkhunter. Una auditoría de pentesting le dio una puntuación de seguridad bastante alta, y Vaultwarden guarda las contraseñas de casa de forma autoalojada.",
-      "Security is the core pillar: zero open ports except the n8n webhook, remote access only through Tailscale, Fail2ban standing guard, and periodic rkhunter malware self-scans. A pentesting audit rated it quite high on security, and Vaultwarden keeps the household's passwords self-hosted.",
+      "La seguridad es el pilar central: hacia fuera solo hay un puerto abierto, el de los flujos de n8n, sin ningún dashboard accesible desde internet. El acceso remoto es solo por Tailscale, fail2ban y rkhunter vigilan con aviso a Telegram, y Uptime Kuma junto a Beszel monitorizan caídas y rendimiento. Una auditoría de hardening con Lynis marca 67/100 — hay margen, y el siguiente paso es mover SSH del puerto por defecto. Vaultwarden guarda las contraseñas de casa de forma autoalojada.",
+      "Security is the core pillar: only one port is open to the outside — n8n's webhook flows — with no dashboard reachable from the internet. Remote access is Tailscale-only, fail2ban and rkhunter keep watch with Telegram alerts, and Uptime Kuma plus Beszel monitor outages and performance. A Lynis hardening audit scored it 67/100 — there's room to improve, and moving SSH off the default port is next. Vaultwarden keeps the household's passwords self-hosted.",
     ),
   ];
+}
+
+export function homelabCtaLabel(locale: Locale) {
+  return tr(locale, "Ver el homelab en directo", "See the homelab live");
+}
+
+export function homelabPageNote(locale: Locale) {
+  return tr(
+    locale,
+    "Tiene su propia página dedicada, con blog y actualizaciones en directo.",
+    "It has its own dedicated page, with a blog and live updates.",
+  );
 }
 
 export function learnMoreLabel(locale: Locale) {
@@ -189,4 +201,36 @@ export function footerCopy(locale: Locale, year: number) {
     `© ${year} Guillermo Sicilia · Tenerife, España`,
     `© ${year} Guillermo Sicilia · Tenerife, Spain`,
   );
+}
+
+export function footerBio(locale: Locale) {
+  return tr(
+    locale,
+    "Desarrollador full-stack construyendo productos de punta a punta, desde la automatización hasta la interfaz.",
+    "Full-stack developer building products end to end, from automation to interface.",
+  );
+}
+
+export function footerTalkLabel(locale: Locale) {
+  return tr(locale, "¿Hablamos?", "Let's talk");
+}
+
+export function footerNavLabel(locale: Locale) {
+  return tr(locale, "Secciones", "Sections");
+}
+
+export function footerSocialsLabel(locale: Locale) {
+  return tr(locale, "Redes", "Social");
+}
+
+export function footerCredit(locale: Locale) {
+  return tr(locale, "Hecho con Vite, React y", "Made with Vite, React and");
+}
+
+export function footerMarqueePhrases(locale: Locale): string[] {
+  return [
+    "Guillermo Sicilia Hernández",
+    tr(locale, "Full-Stack", "Full-Stack"),
+    tr(locale, '"En mi máquina funcionaba"', '"It worked on my machine"'),
+  ];
 }
