@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { NAV_LINKS, NAV_LINKS_EN } from "../data/site";
 import { useSectionProgress } from "../hooks/useSectionProgress";
 import type { Locale } from "../lib/i18n";
@@ -67,15 +68,53 @@ function ScrambleLabel({ text, active }: { text: string; active: boolean }) {
   return <span className="section-rail__label">{display}</span>;
 }
 
+const FOOTER_CLEARANCE_PX = 32;
+
 export function SectionRail({ locale }: SectionRailProps) {
   const links = locale === "en" ? NAV_LINKS_EN : NAV_LINKS;
   const hrefs = locale === "en" ? EN_HREFS : ES_HREFS;
   const { activeIndex, progress, scrollPercent, gapPx } = useSectionProgress(hrefs);
   const last = links.length - 1;
   const total = links.length;
+  const railRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let rafId: number | null = null;
+
+    const syncFooterClearance = () => {
+      rafId = null;
+      const rail = railRef.current;
+      const footer = document.querySelector<HTMLElement>(".site-footer");
+      if (!rail || !footer) return;
+
+      const naturalBottom = window.innerHeight / 2 + rail.offsetHeight / 2;
+      const limit = footer.getBoundingClientRect().top - FOOTER_CLEARANCE_PX;
+      const lift = Math.max(0, naturalBottom - limit);
+      rail.style.setProperty("--rail-lift", `${lift}px`);
+      rail.classList.toggle("section-rail--away", lift > window.innerHeight * 0.28);
+    };
+
+    const onScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(syncFooterClearance);
+    };
+
+    syncFooterClearance();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    ScrollTrigger.addEventListener("refresh", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      ScrollTrigger.removeEventListener("refresh", onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, [gapPx]);
 
   return (
     <nav
+      ref={railRef}
       className="section-rail"
       aria-label={tr(locale, "Secciones", "Sections")}
     >

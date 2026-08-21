@@ -160,7 +160,65 @@
   }
 
   .section-rail {
-    @apply fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end lg:flex lg:right-10;
+    /* Match lang toggle right edge (sm:right-5) for a shared chrome gutter.
+       --rail-lift keeps the rail above .site-footer when it enters the viewport. */
+    @apply fixed right-5 top-1/2 z-40 hidden flex-col items-end lg:flex;
+    --rail-lift: 0px;
+    padding: 0.35rem 0.15rem 0.35rem 0.5rem;
+    transform: translateY(calc(-50% - var(--rail-lift)));
+    transition:
+      transform 0.2s ease,
+      opacity 0.25s ease;
+  }
+
+  .section-rail--away {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Soft canvas silhouette behind the rail — readable labels, no solid chips.
+     Flush to the viewport right edge so it doesn't read as a floating pill. */
+  .section-rail::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -0.75rem;
+    bottom: -0.75rem;
+    /* Cancel rail right-5 (1.25rem) so scrim meets the screen edge */
+    right: -1.25rem;
+    width: 3.25rem;
+    border-radius: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+      to left,
+      color-mix(in oklch, var(--canvas) 92%, transparent) 0%,
+      color-mix(in oklch, var(--canvas) 70%, transparent) 45%,
+      color-mix(in oklch, var(--canvas) 35%, transparent) 72%,
+      transparent 100%
+    );
+    backdrop-filter: blur(12px) saturate(1.05);
+    -webkit-backdrop-filter: blur(12px) saturate(1.05);
+    mask-image: linear-gradient(
+      to left,
+      #000 0%,
+      #000 38%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to left,
+      #000 0%,
+      #000 38%,
+      transparent 100%
+    );
+    transition:
+      opacity 0.28s ease,
+      width 0.35s ease;
+  }
+
+  .section-rail:hover::before {
+    opacity: 1;
+    width: calc(11.5rem + 1.25rem);
   }
 
   .section-rail__counter,
@@ -237,7 +295,8 @@
     transition:
       max-width 0.35s ease,
       margin-right 0.35s ease,
-      opacity 0.2s ease;
+      opacity 0.2s ease,
+      color 0.2s ease;
   }
 
   .section-rail__node {
@@ -264,12 +323,22 @@
     max-width: 10rem;
     margin-right: 0.75rem;
     opacity: 1;
+    text-shadow:
+      0 0 10px color-mix(in oklch, var(--canvas) 90%, transparent),
+      0 1px 2px color-mix(in oklch, var(--canvas) 70%, transparent);
   }
 
+  .section-rail:hover .section-rail__label,
   .section-rail__track-wrap:hover .section-rail__label {
     max-width: 10rem;
     margin-right: 0.75rem;
     opacity: 1;
+    color: var(--ink);
+  }
+
+  .section-rail:hover .section-rail__link--active .section-rail__label,
+  .section-rail__track-wrap:hover .section-rail__link--active .section-rail__label {
+    color: var(--node-color);
   }
 
   .section-rail__link--active .section-rail__node {
@@ -653,7 +722,7 @@
   }
 
   .project-thumb--reel {
-    max-height: min(68vh, 44rem);
+    max-height: min(60vh, 38rem);
     width: 100%;
   }
 
@@ -757,12 +826,13 @@
     position: fixed;
     inset: 0;
     margin: auto;
-    max-width: min(32rem, calc(100vw - 2rem));
-    max-height: min(85vh, 42rem);
+    max-width: min(42rem, calc(100vw - 2rem));
+    max-height: min(88vh, 48rem);
     width: 100%;
     border: none;
     border-radius: 1rem;
     padding: 0;
+    overflow: hidden;
     background: var(--canvas);
     color: var(--ink);
     box-shadow: 0 24px 60px -20px oklch(0.05 0.01 265 / 0.35);
@@ -787,13 +857,45 @@
     }
   }
 
-  .project-modal__panel {
-    @apply relative overflow-y-auto p-6 sm:p-8;
-    max-height: min(85vh, 42rem);
+  .project-modal__shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: min(88vh, 48rem);
+    overflow: hidden;
   }
 
   .project-modal__close {
-    @apply absolute right-4 top-4 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-canvas text-muted transition-colors hover:text-ink;
+    @apply absolute right-3 top-3 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:text-ink sm:right-4 sm:top-4;
+    background: color-mix(in oklch, var(--canvas) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--border) 40%, transparent);
+  }
+
+  .project-modal__panel {
+    @apply relative overflow-y-auto p-6 sm:p-8;
+    max-height: min(88vh, 48rem);
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--muted) 50%, transparent) transparent;
+  }
+
+  .project-modal__panel::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .project-modal__panel::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 0.5rem;
+  }
+
+  .project-modal__panel::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--muted) 42%, transparent);
+  }
+
+  .project-modal__panel::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--muted) 68%, transparent);
   }
 
   .project-modal__thumb {
@@ -1398,8 +1500,17 @@
     align-items: center;
     align-items: safe center;
     justify-content: center;
-    padding: 0.75rem 1rem 1.25rem;
+    /* Wider side gutters so the scene doesn't collide with fixed chrome */
+    padding: 0.75rem clamp(1.25rem, 4vw, 2rem) 1.25rem;
     box-sizing: border-box;
+  }
+
+  /* Section rail + active label sit in this right band from lg up */
+  @media (min-width: 1024px) {
+    .work-reel-scroll__stage {
+      padding-left: clamp(1.5rem, 4vw, 2.75rem);
+      padding-right: clamp(7.5rem, 16vw, 12rem);
+    }
   }
 
   .work-reel-scroll__frame {
@@ -1440,9 +1551,21 @@
 
   @media (min-width: 768px) {
     .work-reel__scene {
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
       align-items: center;
-      gap: clamp(2rem, 4vw, 3.5rem);
+      gap: clamp(1.75rem, 3.5vw, 3rem);
+    }
+  }
+
+  /* Tight desktop band: rail is on, frame is still nearly full-bleed */
+  @media (min-width: 1024px) and (max-width: 1280px) {
+    .work-reel__scene {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: clamp(1.25rem, 2.5vw, 2rem);
+    }
+
+    .project-thumb--reel {
+      max-height: min(52vh, 30rem);
     }
   }
 
@@ -1464,7 +1587,7 @@
     }
 
     .project-thumb--reel {
-      max-height: min(42vh, 24rem);
+      max-height: min(40vh, 22rem);
     }
   }
 
@@ -1472,7 +1595,14 @@
     .work-reel-scroll__stage {
       height: auto;
       min-height: 0;
-      padding: 0 1rem 2rem;
+      padding: 0 clamp(1.25rem, 4vw, 2rem) 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      .work-reel-scroll__stage {
+        padding-left: clamp(1.5rem, 4vw, 2.75rem);
+        padding-right: clamp(7.5rem, 16vw, 12rem);
+      }
     }
   }
 

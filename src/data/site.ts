@@ -219,24 +219,24 @@ export const FEATURED_PROJECTS: ProjectItem[] = [
     tech: ["Next.js", "Odoo", "Vercel"],
     href: "https://www.tenaasesores.es/",
     linkType: "site",
-    preview: "/img/tenaasesores.png",
+    preview: "/img/tenaasesores.webp",
     previewAltEs: "Captura de la web tenaasesores.es",
     previewAltEn: "Screenshot of the tenaasesores.es website",
     goalsEs: [
-      "Sustituir la web estática anterior por una plataforma con datos en vivo desde Odoo.",
-      "Unificar la imagen corporativa y mejorar el rendimiento y el SEO.",
+      "Sustituir la web del builder de Odoo —básica y sin mantenimiento— por una con diseño moderno, nuevos colores de marca y logo actualizado.",
+      "Mejorar el rendimiento y el SEO de la web corporativa.",
     ],
     goalsEn: [
-      "Replace the previous static site with a platform powered by live data from Odoo.",
-      "Unify the corporate image and improve performance and SEO.",
+      "Replace the basic, unmaintained Odoo website builder site with a modern design, updated brand colors and logo.",
+      "Improve performance and SEO of the corporate website.",
     ],
     challengesEs: [
-      "Sincronizar en tiempo real la información fiscal/jurídica de Odoo sin sobrecargar la API.",
-      "Desplegar sobre Vercel manteniendo la integración con la infraestructura de la asesoría.",
+      "Montar el sitemap y redirigir muchas rutas antiguas a las secciones de la web nueva.",
+      "Limpiar enlaces residuales de partes nunca implementadas (shop, blog) que seguían apareciendo en búsquedas.",
     ],
     challengesEn: [
-      "Sync Odoo's tax/legal data in real time without overloading the API.",
-      "Deploy on Vercel while keeping the integration with the firm's infrastructure.",
+      "Build the sitemap and redirect many old routes to sections on the new site.",
+      "Clean up leftover links to never-shipped areas (shop, blog) that still showed up in search results.",
     ],
   },
   {
@@ -249,24 +249,46 @@ export const FEATURED_PROJECTS: ProjectItem[] = [
     tech: ["Next.js", "Odoo", "Supabase", "Vercel"],
     href: "https://app.syntia.es/",
     linkType: "site",
-    preview: "/img/syntia.png",
+    preview: "/img/syntia.webp",
     previewAltEs: "Captura de la web app.syntia.es",
     previewAltEn: "Screenshot of the app.syntia.es website",
     goalsEs: [
-      "Dar a los clientes un portal propio para consultar su información fiscal sin depender de llamadas o email.",
-      "Centralizar datos de Odoo y Supabase en una única experiencia de cliente.",
+      "Dar a los clientes un portal propio para consultar toda la información de la asesoría sin un email por cada consulta.",
+      "Integrar las herramientas de la asesoría para llevar todos los datos relevantes al cliente en un solo sitio.",
     ],
     goalsEn: [
-      "Give clients their own portal to check their tax information without relying on calls or email.",
-      "Centralize Odoo and Supabase data into a single client experience.",
+      "Give clients their own portal to check all advisory information without sending an email for every request.",
+      "Integrate the firm's tools so all relevant data reaches the client in one place.",
     ],
     challengesEs: [
-      "Diseñar autenticación y permisos que respeten la privacidad de cada cliente.",
-      "Mantener la información sincronizada entre Odoo (ERP) y Supabase en tiempo real.",
+      "La API de Odoo es muy limitada y con un rate-limit bajo: hay que ser muy baratos en peticiones para evitar 429.",
+      "Un único worker sirve varias instancias de la app en la misma máquina; cache en Next y otras tácticas para recortar llamadas.",
+      "Supabase cubre lo que la cache no alcanza y comparte estado de cache entre dispositivos.",
     ],
     challengesEn: [
-      "Design authentication and permissions that respect each client's privacy.",
-      "Keep information in sync between Odoo (ERP) and Supabase in real time.",
+      "Odoo's API is very limited with a low rate limit: requests have to stay cheap to avoid 429s.",
+      "A single worker serves multiple app instances on the same machine; Next.js caching and related tactics cut extra calls.",
+      "Supabase fills gaps the cache can't cover and shares cache state across devices.",
+    ],
+  },
+  {
+    id: "sovereign-stack",
+    name: "Sovereign Stack",
+    descriptionEs:
+      "Sitio del homelab: guía, historial y blog de lo que voy montando en casa en administración de sistemas.",
+    descriptionEn:
+      "Homelab site: guide, changelog and blog of what I run at home for systems tinkering.",
+    tech: ["Docker", "Dockge", "Pi-hole", "n8n", "Tailscale"],
+    href: "https://homelab.guillermosh.com",
+    linkType: "site",
+    preview: "/img/sovereign-stack.webp",
+    previewAltEs: "Captura de Sovereign Stack, el sitio del homelab",
+    previewAltEn: "Screenshot of Sovereign Stack, the homelab site",
+    goalsEs: [
+      "Dejar una guía, historial y blog de lo que voy haciendo en casa en administración de sistemas, más orientado a trastear por si a alguien le resulta útil.",
+    ],
+    goalsEn: [
+      "Keep a guide, changelog and blog of home systems tinkering — practical notes in case they're useful to someone else.",
     ],
   },
   {
@@ -279,67 +301,39 @@ export const FEATURED_PROJECTS: ProjectItem[] = [
     tech: ["TypeScript", "Web", "Gestión deportiva"],
     techEn: ["TypeScript", "Web", "Sports management"],
     href: "https://github.com/GuillermoSH/CVOrotava-Team-Manager",
+    preview: "/img/cvorotava-team-manager.webp",
+    previewAltEs: "Captura de CVOrotava Team Manager",
+    previewAltEn: "Screenshot of CVOrotava Team Manager",
     goalsEs: [
-      "Centralizar la gestión deportiva del club: convocatorias, estadísticas y comunicación con el equipo.",
-      "Sustituir hojas de cálculo dispersas por una única fuente de verdad.",
+      "Centralizar la gestión deportiva de los equipos de categorías altas del club.",
+      "Avisos de pagos (registro del club y avisos a jugadores, sin pasarela de pago), vídeos de entrenamientos/partidos y resultados, calendario y el resto de operativa del día a día.",
     ],
     goalsEn: [
-      "Centralize the club's sports management: rosters, stats and team communication.",
-      "Replace scattered spreadsheets with a single source of truth.",
-    ],
-    challengesEs: [
-      "Modelar datos deportivos con varias categorías y temporadas sin perder trazabilidad histórica.",
-    ],
-    challengesEn: [
-      "Model sports data across multiple categories and seasons without losing historical traceability.",
-    ],
-  },
-  {
-    id: "netpulse",
-    name: "NetPulse",
-    descriptionEs:
-      "Marcador de voleibol con control de rachas y dinámica de partido.",
-    descriptionEn:
-      "Volleyball scoreboard with run tracking and match dynamics.",
-    tech: ["TypeScript", "UX deportiva"],
-    techEn: ["TypeScript", "Sports UX"],
-    href: "https://github.com/GuillermoSH/NetPulse",
-    goalsEs: [
-      "Ofrecer un marcador pensado para el ritmo real de un partido, con rachas y estado del set.",
-      "Facilitar el seguimiento en directo desde banquillo o grada.",
-    ],
-    goalsEn: [
-      "Provide a scoreboard built for the real pace of a match, with runs and set state.",
-      "Make live tracking easier from the bench or the stands.",
-    ],
-    challengesEs: [
-      "Diseñar una UX rápida de usar bajo presión, sin pasos de más durante el partido.",
-    ],
-    challengesEn: [
-      "Design a UX that's fast to use under pressure, with no extra steps during the match.",
+      "Centralize sports management for the club's higher-category teams.",
+      "Payment notices (club records and player alerts, no payment gateway), training/match videos and results, calendar, and day-to-day ops.",
     ],
   },
   {
     id: "cvorotava-back",
     name: "CVOrotava-back",
-    descriptionEs: "Backend Java para dashboard interno y gestión de tareas.",
-    descriptionEn: "Java backend for an internal dashboard and task management.",
-    goalsEs: [
-      "Dar soporte a un dashboard interno para la gestión de tareas del club.",
-      "Exponer una API estable para los distintos frontends del proyecto.",
-    ],
-    goalsEn: [
-      "Support an internal dashboard for the club's task management.",
-      "Expose a stable API for the project's various frontends.",
-    ],
-    challengesEs: [
-      "Diseñar un backend en Java fácil de mantener sin dedicación a tiempo completo.",
-    ],
-    challengesEn: [
-      "Design a Java backend that's easy to maintain without full-time dedication.",
-    ],
+    descriptionEs:
+      "API Java para centralizar la gestión de datos del club: pagos, jugadores, licencias y equipaciones.",
+    descriptionEn:
+      "Java API to centralize club data management: payments, players, licenses and kits.",
     tech: ["Java", "API"],
     href: "https://github.com/GuillermoSH/CVOrotava-back",
+    goalsEs: [
+      "Crear una API para las gestiones de las bases de datos del club completo: pagos, jugadores/licencias, equipaciones, etc.",
+    ],
+    goalsEn: [
+      "Build an API for the club's full database workflows: payments, players/licenses, kits, and related ops.",
+    ],
+    challengesEs: [
+      "No pude dedicarle el tiempo que necesitaba y acabé abandonándolo; en no mucho empezará el reemplazo para la temporada 26/27.",
+    ],
+    challengesEn: [
+      "I couldn't give it the time it needed and eventually shelved it; a replacement for the 26/27 season is starting soon.",
+    ],
   },
 ];
 
