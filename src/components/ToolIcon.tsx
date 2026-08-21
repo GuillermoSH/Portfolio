@@ -30,6 +30,39 @@ export function hasToolIcon(label: string) {
   return getToolIcon(label) !== null;
 }
 
+export function CoffeeIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={`tool-icon-check ${className}`.trim()}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 8h11v7.2A3.8 3.8 0 0 1 12.2 19H8.8A3.8 3.8 0 0 1 5 15.2V8Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16 10h1.4A2.6 2.6 0 0 1 20 12.6v0A2.6 2.6 0 0 1 17.4 15H16"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 5.2c.35-.7.35-1.4 0-2.1M11 5.2c.35-.7.35-1.4 0-2.1M4 21h13"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function CheckIcon({ className = "" }: { className?: string }) {
   return (
     <svg

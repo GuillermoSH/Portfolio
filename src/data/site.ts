@@ -8,6 +8,7 @@ export const SITE = {
     "https://www.linkedin.com/in/guillermo-sicilia-hern%C3%A1ndez-95861523b/",
   github: "https://github.com/GuillermoSH",
   twitter: "https://twitter.com/guillermoshdez",
+  email: "siciliahernandezguillermo@gmail.com",
 } as const;
 
 export const NAV_LINKS = [
@@ -435,7 +436,7 @@ export type HomelabLink =
   | { type: "link"; label: string; href: string }
   | { type: "text"; label: string };
 
-export const HOMELAB_MORE_HREF: string | undefined = undefined;
+export const HOMELAB_MORE_HREF: string | undefined = "https://homelab.guillermosh.com";
 
 export const HOMELAB_ITEMS: HomelabLink[] = [
   { type: "link", label: "Dockge", href: "https://github.com/louislam/dockge" },

@@ -9,8 +9,7 @@ type NavProps = {
   onLocaleChange: (locale: Locale) => void;
 };
 
-const NAV_CIRCLE_BUTTON =
-  "fixed top-4 z-50 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-canvas/90 backdrop-blur-sm transition-colors sm:top-5";
+const NAV_CIRCLE_BUTTON = "nav-icon-btn fixed top-4 z-50 sm:top-5";
 
 function BurgerIcon({ open }: { open: boolean }) {
   return (
@@ -55,10 +54,10 @@ export function Nav({ locale, onLocaleChange }: NavProps) {
       <button
         type="button"
         onClick={() => onLocaleChange(locale === "es" ? "en" : "es")}
-        className={`${NAV_CIRCLE_BUTTON} right-4 text-xs font-semibold uppercase tracking-wide text-muted hover:text-ink sm:right-5`}
-        aria-label={tr(locale, "Cambiar idioma", "Switch language")}
+        className={`${NAV_CIRCLE_BUTTON} lang-toggle ${locale === "es" ? "lang-toggle--es" : "lang-toggle--en"} right-4 sm:right-5`}
+        aria-label={`${locale === "es" ? "Es" : "En"} — ${tr(locale, "Cambiar a inglés", "Switch to Spanish")}`}
       >
-        {locale === "es" ? "EN" : "ES"}
+        <span className="lang-toggle__label">{locale === "es" ? "Es" : "En"}</span>
       </button>
 
       <button
