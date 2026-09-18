@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.13.0",
+  "packageManager": "pnpm@11.27.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
@@ -30,10 +30,5 @@
     "gsap": "^3.15.0",
     "lucide-react": "^1.25.0",
     "three": "^0.185.1"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   }
 }
