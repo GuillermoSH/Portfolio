@@ -1,0 +1,30 @@
+# Guillermo Sicilia Hernández
+
+> Full-stack developer based in Tenerife, Spain. Builds and automates web apps with Next.js, Supabase, Odoo and n8n.
+
+Software developer working on production web apps, ERP integrations (Odoo) and workflow automation (n8n). Currently building and maintaining a company's corporate website and client portal, plus a self-hosted n8n infrastructure automating business workflows.
+
+## Experience
+
+- Software Developer — Tena Asesores y Abogados S.L. (May 2026 – present): self-hosted n8n infrastructure with Workers and Redis queues (1000+ weekly executions), Odoo integrations, Next.js/Supabase web apps.
+- Software Developer, work placement — Tena Asesores y Abogados S.L. (Feb–May 2026): custom Odoo models and logic in Python, n8n automation.
+- Software Developer — Eviden (Jul 2023 – Dec 2024): management platform for Orange, Oracle SQL, TIBCO ecosystem.
+- Web Developer, work placement — Atos (Mar–May 2023): full-stack development with Spring Boot and Angular.
+
+## Projects
+
+- [tenaasesores.es](https://www.tenaasesores.es/): Corporate website in production — Next.js, live data from Odoo, deployed on Vercel.
+- [Syntia](https://app.syntia.es/): Client portal for an advisory firm — Next.js, Odoo and Supabase.
+- [Sovereign Stack](https://homelab.guillermosh.com): Homelab guide, changelog and blog — Docker, Pi-hole, n8n, Tailscale.
+- [CVOrotava-Team-Manager](https://github.com/GuillermoSH/CVOrotava-Team-Manager): Sports management app for a volleyball club — TypeScript.
+- [CVOrotava-back](https://github.com/GuillermoSH/CVOrotava-back): Java API for club data management (payments, players, licenses).
+
+## Stack
+
+Next.js, React, Node.js, Java, Spring Boot, TypeScript, Tailwind CSS, PostgreSQL, Oracle SQL, Supabase, Odoo, n8n, Docker, Vercel, GitHub Actions.
+
+## Contact
+
+- Email: siciliahernandezguillermo@gmail.com
+- LinkedIn: https://www.linkedin.com/in/guillermo-sicilia-hern%C3%A1ndez-95861523b/
+- GitHub: https://github.com/GuillermoSH
