@@ -519,15 +519,15 @@
   .hero-vignette {
     @apply absolute inset-0 z-[1];
     background:
-      linear-gradient(0deg, var(--canvas) 8%, transparent 42%),
-      linear-gradient(180deg, var(--canvas) 0%, transparent 22%);
+      linear-gradient(0deg in srgb, var(--canvas) 8%, transparent 42%),
+      linear-gradient(180deg in srgb, var(--canvas) 0%, transparent 22%);
   }
 
   @media (min-width: 768px) {
     .hero-vignette {
       background:
-        linear-gradient(90deg, var(--canvas) 0%, transparent 62%),
-        linear-gradient(0deg, var(--canvas) 0%, transparent 30%);
+        linear-gradient(90deg in srgb, var(--canvas) 0%, transparent 62%),
+        linear-gradient(0deg in srgb, var(--canvas) 0%, transparent 30%);
     }
   }
 

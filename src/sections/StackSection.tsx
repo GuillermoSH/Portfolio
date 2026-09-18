@@ -139,15 +139,6 @@ export function StackSection({ locale }: StackSectionProps) {
         pin: stage,
         pinSpacing: true,
         anticipatePin: 1,
-        snap: {
-          snapTo: (value) => {
-            const step = 1 / Math.max(STEP_COUNT - 1, 1);
-            return gsap.utils.clamp(0, 1, Math.round(value / step) * step);
-          },
-          duration: { min: 0.18, max: 0.42 },
-          ease: "power2.out",
-          delay: 0,
-        },
         onUpdate: (self) => {
           syncFromProgress(self.progress);
         },
